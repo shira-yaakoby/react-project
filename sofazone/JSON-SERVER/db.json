@@ -1,0 +1,54 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "name": "Dana Cohen",
+        "email": "dana@gmail.com",
+        "password": "Dana1234!",
+        "isAdmin": true
+      },
+      {
+        "id": 2,
+        "name": "Yoav Levi",
+        "email": "yoav@gmail.com",
+        "password": "Yoav5678!",
+        "isAdmin": false
+      }
+    ],
+    "products": [
+      {
+        "id": 1,
+        "title": "Barcelona Corner Sofa",
+        "description": "Modern sofa with washable fabric",
+        "image": "https://example.com/images/barcelona.jpg",
+        "category": "Corner Sofas",
+        "price": 3490,
+        "buyCount": 7
+      },
+      {
+        "id": 2,
+        "title": "Electric Recliner Chair",
+        "description": "High-quality padded chair with opening mechanism",
+        "image": "https://example.com/images/relax.jpg",
+        "category": "Recliners",
+        "price": 1490,
+        "buyCount": 3
+      }
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "userId": 2,
+        "productId": 1,
+        "comment": "Amazing sofa! Very comfortable.",
+        "rating": 5
+      },
+      {
+        "id": 2,
+        "userId": 2,
+        "productId": 2,
+        "comment": "The opening mechanism is not so smooth.",
+        "rating": 3
+      }
+    ]
+  }
