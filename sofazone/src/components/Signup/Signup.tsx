@@ -51,7 +51,7 @@ const Signup: FC<SignupProps> = () => {
 
         <form onSubmit={myForm.handleSubmit} className="signup">
           <label htmlFor="name">Name</label>
-          <input id="name" name="name" onChange={myForm.handleChange} type="text" placeholder="Your full name" required />
+          <input id="name" name="name" onChange={myForm.handleChange} type="name" placeholder="Your full name" required />
           {myForm.errors.name && <small className="text-danger">{myForm.errors.name}</small>}
 
           <label htmlFor="email">Email</label>
