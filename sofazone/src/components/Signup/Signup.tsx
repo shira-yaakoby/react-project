@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import '../Login/Login.scss'; // אפשר לשנות את השם ל Signup.scss אם את מפרידה עיצובים
+import '../../scss/login-signup-style.scss';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { SignupModel } from '../../models/SignupModel'; 
@@ -35,8 +35,8 @@ const Signup: FC<SignupProps> = () => {
   });
 
   return (
-    <div className="Login">
-      <div className="Login-box">
+    <div className="enter">
+      <div className="enter-box">
         <div className="icon-wrapper">
           <svg fill="currentColor" viewBox="0 0 20 20">
             <path

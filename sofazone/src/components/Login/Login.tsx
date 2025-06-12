@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import './Login.scss';
+import '../../scss/login-signup-style.scss';
 import { useFormik } from 'formik';
 import { log } from 'node:console';
 import * as yup from 'yup';
@@ -45,8 +45,8 @@ const Login: FC = () => {
     })
   })
 
-  return <div className="Login">
-    <div className="login-box">
+  return <div className="enter">
+    <div className="enter-box">
       <div className="icon-wrapper">
         <svg fill="currentColor" viewBox="0 0 20 20">
           <path
