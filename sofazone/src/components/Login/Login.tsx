@@ -90,7 +90,7 @@ const Login: FC = () => {
       </button>
 
       <p style={{ textAlign: 'center', marginTop: '1rem', color: '#718096' }}>
-        Don't have an account? <a href="#" style={{ color: '#3b82f6', fontWeight: '600' }}>Sign Up</a>
+        Don't have an account? <button style={{ color: '#3b82f6', fontWeight: '600' }}>Sign Up</button>  
       </p>
     </div>
   </div>
