@@ -4,30 +4,31 @@ import { useFormik } from 'formik';
 import { log } from 'node:console';
 import * as yup from 'yup';
 import { LoginModel } from "../../models/LoginModel";
+import { useNavigate } from 'react-router-dom';
 
 const Login: FC = () => {
- const loginUser = async (value: LoginModel) => {
-  try {
-    const response = await fetch('http://localhost:3000/users');
-    const users = await response.json();
+  const loginUser = async (value: LoginModel) => {
+    try {
+      const response = await fetch('http://localhost:3000/users');
+      const users = await response.json();
 
-    const user = users.find(
-      (u: any) => u.email === value.email && u.password === value.password
-    );
+      const user = users.find(
+        (u: any) => u.email === value.email && u.password === value.password
+      );
 
-    if (user) {
-      console.log('משתמש קיים:', user);
-       localStorage.setItem('loggedUser', JSON.stringify(user));
-      // window.location.href = '/home';
-    } else {
-      alert('המשתמש לא קיים. נעבור לעמוד הרשמה.');
-      // window.location.href = '/signup';
+      if (user) {
+        console.log('משתמש קיים:', user);
+        localStorage.setItem('loggedUser', JSON.stringify(user));
+      }
+      else {
+        alert('המשתמש לא קיים. נעבור לעמוד הרשמה.');
+        // window.location.href = '/signup';
+      }
+    } catch (err) {
+      console.error('שגיאה בכניסה:', err);
+      alert('הייתה שגיאה בשרת, נסי שוב מאוחר יותר.');
     }
-  } catch (err) {
-    console.error('שגיאה בכניסה:', err);
-    alert('הייתה שגיאה בשרת, נסי שוב מאוחר יותר.');
-  }
-};
+  };
 
   const myForm = useFormik({
     initialValues: new LoginModel(),
@@ -44,7 +45,7 @@ const Login: FC = () => {
       })
     })
   })
-
+  const signupRoute = useNavigate();
   return <div className="enter">
     <div className="enter-box">
       <div className="icon-wrapper">
@@ -75,7 +76,8 @@ const Login: FC = () => {
           <a href="#">Forgot password?</a>
         </div> */}
 
-        <button type="submit" className="submit-btn" >Sign In</button>
+        <button type="submit" className="submit-btn" /*onClick={() => signupRoute('/homePage')}*/
+        >Sign In</button>
       </form>
 
       <div className="or-divider">or continue with</div>
@@ -90,7 +92,7 @@ const Login: FC = () => {
       </button>
 
       <p style={{ textAlign: 'center', marginTop: '1rem', color: '#718096' }}>
-        Don't have an account? <button style={{ color: '#3b82f6', fontWeight: '600' }}>Sign Up</button>  
+        Don't have an account? <button style={{ color: '#3b82f6', fontWeight: '600' }} onClick={() => signupRoute('/signup')}>Sign Up</button>
       </p>
     </div>
   </div>
