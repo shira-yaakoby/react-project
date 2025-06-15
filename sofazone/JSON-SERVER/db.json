@@ -1,37 +1,51 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Dana Cohen",
       "email": "dana@gmail.com",
       "password": "Dana1234!",
       "isAdmin": true
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Yoav Levi",
       "email": "yoav@gmail.com",
       "password": "Yoav5678!",
       "isAdmin": false
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Liron Azulay",
       "email": "liron@gmail.com",
       "password": "Liron2024!",
       "isAdmin": false
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Maya Ben-David",
       "email": "maya@gmail.com",
       "password": "MayaPass1!",
+      "isAdmin": false
+    },
+    {
+      "id": "40d7",
+      "name": "שירה יעקבי",
+      "email": "shira0583267831@gmail.com",
+      "password": "123123123Aa@",
+      "isAdmin": false
+    },
+    {
+      "id": "1345",
+      "name": "שירה יעקבי",
+      "email": "shira0583267831@gmail.com",
+      "password": "123123123Aa@",
       "isAdmin": false
     }
   ],
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Barcelona Corner Sofa",
       "description": "Modern sofa with washable fabric",
       "image": "https://example.com/images/barcelona.jpg",
@@ -40,7 +54,7 @@
       "buyCount": 7
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Madrid L-Shape Sofa",
       "description": "Comfortable L-shaped sofa with storage",
       "image": "https://example.com/images/madrid.jpg",
@@ -49,7 +63,7 @@
       "buyCount": 5
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Rome Gray Corner Sofa",
       "description": "Stylish gray corner sofa for modern homes",
       "image": "https://example.com/images/rome.jpg",
@@ -58,7 +72,7 @@
       "buyCount": 9
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "Oslo Family Sofa",
       "description": "Spacious family sofa with durable fabric",
       "image": "https://example.com/images/oslo.jpg",
@@ -67,7 +81,7 @@
       "buyCount": 2
     },
     {
-      "id": 5,
+      "id": "5",
       "title": "Electric Recliner Chair",
       "description": "High-quality padded chair with opening mechanism",
       "image": "https://example.com/images/relax.jpg",
@@ -76,7 +90,7 @@
       "buyCount": 3
     },
     {
-      "id": 6,
+      "id": "6",
       "title": "Classic Leather Recliner",
       "description": "Elegant recliner with real leather finish",
       "image": "https://example.com/images/leather.jpg",
@@ -85,7 +99,7 @@
       "buyCount": 4
     },
     {
-      "id": 7,
+      "id": "7",
       "title": "Recliner with Massage Option",
       "description": "Relaxing recliner with built-in massager",
       "image": "https://example.com/images/massage.jpg",
@@ -94,7 +108,7 @@
       "buyCount": 6
     },
     {
-      "id": 8,
+      "id": "8",
       "title": "Slim Recliner Chair",
       "description": "Compact design recliner for small spaces",
       "image": "https://example.com/images/slim.jpg",
@@ -103,7 +117,7 @@
       "buyCount": 1
     },
     {
-      "id": 9,
+      "id": "9",
       "title": "Modern Armchair",
       "description": "Light gray fabric armchair with oak legs",
       "image": "https://example.com/images/modern.jpg",
@@ -112,7 +126,7 @@
       "buyCount": 4
     },
     {
-      "id": 10,
+      "id": "10",
       "title": "Classic Blue Armchair",
       "description": "Royal blue armchair with plush seating",
       "image": "https://example.com/images/blue.jpg",
@@ -121,7 +135,7 @@
       "buyCount": 2
     },
     {
-      "id": 11,
+      "id": "11",
       "title": "Velvet Accent Armchair",
       "description": "Luxurious velvet armchair in burgundy",
       "image": "https://example.com/images/velvet.jpg",
@@ -130,7 +144,7 @@
       "buyCount": 7
     },
     {
-      "id": 12,
+      "id": "12",
       "title": "Minimalist White Armchair",
       "description": "Scandinavian-style white armchair",
       "image": "https://example.com/images/white.jpg",
@@ -139,7 +153,7 @@
       "buyCount": 5
     },
     {
-      "id": 13,
+      "id": "13",
       "title": "Sofa Bed with Storage",
       "description": "Dual-use sofa bed with hidden compartment",
       "image": "https://example.com/images/sofabed1.jpg",
@@ -148,7 +162,7 @@
       "buyCount": 6
     },
     {
-      "id": 14,
+      "id": "14",
       "title": "Fold-Out Sofa Bed",
       "description": "Space-saving fold-out sofa bed",
       "image": "https://example.com/images/sofabed2.jpg",
@@ -157,7 +171,7 @@
       "buyCount": 3
     },
     {
-      "id": 15,
+      "id": "15",
       "title": "Luxury Sofa Bed",
       "description": "Premium sofa bed with memory foam",
       "image": "https://example.com/images/sofabed3.jpg",
@@ -166,7 +180,7 @@
       "buyCount": 4
     },
     {
-      "id": 16,
+      "id": "16",
       "title": "Compact Sofa Bed",
       "description": "Ideal for guest rooms and studios",
       "image": "https://example.com/images/sofabed4.jpg",
@@ -177,28 +191,28 @@
   ],
   "reviews": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 2,
       "productId": 1,
       "comment": "Amazing sofa! Very comfortable.",
       "rating": 5
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 2,
       "productId": 2,
       "comment": "The opening mechanism is not so smooth.",
       "rating": 3
     },
     {
-      "id": 3,
+      "id": "3",
       "userId": 3,
       "productId": 6,
       "comment": "Very elegant and fits perfectly in my room.",
       "rating": 4
     },
     {
-      "id": 4,
+      "id": "4",
       "userId": 4,
       "productId": 13,
       "comment": "Great for guests. Easy to fold out.",

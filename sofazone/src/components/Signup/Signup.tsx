@@ -3,14 +3,33 @@ import '../../scss/login-signup-style.scss';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { SignupModel } from '../../models/SignupModel'; 
+import { useNavigate, useNavigation } from 'react-router-dom';
+import axios from 'axios';
 
 interface SignupProps {}
 
 const Signup: FC<SignupProps> = () => {
-  const signupUser = (values: SignupModel) => {
-    console.log('Signup data:', values);
-    // כאן את יכולה לשלוח את הנתונים לשרת או לשמור אותם
+  const loginNavigation = useNavigate();
+  
+  const signupUser = async (values: SignupModel) => {
+    try {
+      const check = await axios.get(`http://localhost:3001/users?email=${values.email}`);
+
+      if (check.data.length > 0) {
+        alert('אימייל זה כבר רשום במערכת');
+        return;
+      }
+
+      const response = await axios.post('http://localhost:3001/users', values);
+      console.log('המשתמש נוסף:', response.data);
+  
+      loginNavigation('/login');
+    } catch (error) {
+      console.error('שגיאה בהרשמה:', error);
+      alert('שגיאה בהרשמה. נסי שוב.');
+    }
   };
+  
 
   const myForm = useFormik({
     initialValues:new SignupModel,
@@ -77,7 +96,7 @@ const Signup: FC<SignupProps> = () => {
         </button>
 
         <p style={{ textAlign: 'center', marginTop: '1rem', color: '#718096' }}>
-          Already have an account? <a href="#" style={{ color: '#3b82f6', fontWeight: '600' }}>Sign In</a>
+          Already have an account? <button className="submit-btn" onClick={()=>{loginNavigation('/login')}}>Login</button>
         </p>
       </div>
     </div>

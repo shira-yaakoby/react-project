@@ -1,12 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import '../../scss/login-signup-style.scss';
 import { useFormik } from 'formik';
-import { log } from 'node:console';
 import * as yup from 'yup';
 import { LoginModel } from "../../models/LoginModel";
 import { useNavigate } from 'react-router-dom';
 
 const Login: FC = () => {
+
+  const [loginMessage, setLoginMessage] = useState<string | null>(null);
+
   const loginUser = async (value: LoginModel) => {
     try {
       debugger
@@ -16,20 +18,18 @@ const Login: FC = () => {
       const user = users.find(
         (u: any) => u.email === value.email && u.password === value.password
       );
-      
+
       if (user) {
         console.log('משתמש קיים:', user);
         localStorage.setItem('loggedUser', JSON.stringify(user));
-        signupRoute('/homePage'); // נווטי מפה
+        signupRoute('/homePage');
 
       }
       else {
-        // alert('המשתמש לא קיים. נעבור לעמוד הרשמה.');
-        <small>kt ehho</small>
+        setLoginMessage('The user does not exist. Check your email and password or register.')
         // window.location.href = '/signup';
       }
     } catch (err) {
-      debugger
       console.error('שגיאה בכניסה:', err);
       alert('הייתה שגיאה בשרת, נסי שוב מאוחר יותר.');
     }
@@ -62,15 +62,19 @@ const Login: FC = () => {
           />
         </svg>
       </div>
-      <h2>Sign In to Your Account</h2>
+      <h2>Login to Your Account</h2>
       <p className="subtitle">Access your account to continue</p>
 
       <form onSubmit={myForm.handleSubmit} className="login">
         <label htmlFor="email">Email</label>
-        <input id="email" name="email" onChange={myForm.handleChange} type="email" placeholder="your@email.com" required />
+        <input id="email" name="email"
+          onChange={(m) => { myForm.handleChange(m); if (loginMessage) setLoginMessage(null); }} 
+          type="email" placeholder="your@email.com" required />
         {myForm.errors.email ? <small className='text-danger'>{myForm.errors.email}</small> : ''}
         <label htmlFor="password">Password</label>
-        <input id="password" name='password' onChange={myForm.handleChange} type="password" placeholder="••••••••" required />
+        <input id="password" name='password' 
+         onChange={(m) => { myForm.handleChange(m); if (loginMessage) setLoginMessage(null); }} 
+        type="password" placeholder="••••••••" required />
         {myForm.errors.password ? <small className='text-danger'>{myForm.errors.password}</small> : ''}
 
         {/* <div className="checkbox-container">
@@ -81,7 +85,12 @@ const Login: FC = () => {
           <a href="#">Forgot password?</a>
         </div> */}
 
-        <button type="submit" className="submit-btn" >Sign In</button>
+        <button type="submit" className="submit-btn" >Login</button>
+        {loginMessage && (
+          <div style={{ color: 'darkred', marginTop: '1rem', textAlign: 'center' }}>
+            {loginMessage}
+          </div>
+        )}
 
       </form>
 
@@ -97,7 +106,7 @@ const Login: FC = () => {
       </button>
 
       <p style={{ textAlign: 'center', marginTop: '1rem', color: '#718096' }}>
-        Don't have an account? <button style={{ color: '#3b82f6', fontWeight: '600' }} onClick={() => signupRoute('/signup')}>Sign Up</button>
+        Don't have an account? <button className="submit-btn" onClick={() => signupRoute('/signup')}>Sign Up</button>
       </p>
     </div>
   </div>

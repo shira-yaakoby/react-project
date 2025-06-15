@@ -1,0 +1,26 @@
+.navbar {
+    background: linear-gradient(to right, #f9f4ef, #f3e9db);
+    box-shadow: 0 4px 12px rgba(167, 140, 108, 0.1);
+    padding: 1rem 2rem;
+    border-bottom: none;
+    box-shadow: 0 3px 6px rgba(90, 76, 65, 0.2);
+  }
+  
+  .navbar-nav {
+    gap: 2rem;
+  }
+  
+  .nav-link {
+    color: #5a4c41 !important;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 0.75rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    background-color: #f0e6d6;
+    color: #a57952 !important;
+  }
+  
+  
