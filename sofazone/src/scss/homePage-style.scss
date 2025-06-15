@@ -23,4 +23,13 @@
     color: #a57952 !important;
   }
   
+
+  body{
+    background: linear-gradient(135deg, #faf5ef 0%, #f3e9db 100%);
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(255, 233, 188, 0.2) 0%, transparent 70%),
+      radial-gradient(circle at 80% 80%, rgba(255, 220, 170, 0.15) 0%, transparent 70%);
+    min-height: 100vh;
+    animation: floatingBackground 25s ease-in-out infinite alternate;
+  }
   
