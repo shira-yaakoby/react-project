@@ -11,7 +11,7 @@ const Login: FC = () => {
 
   const loginUser = async (value: LoginModel) => {
     try {
-      debugger
+      
       const response = await fetch('http://localhost:3001/users');
       const users = await response.json();
 

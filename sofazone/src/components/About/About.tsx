@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import './About.scss';
+import Header from '../Header/Header';
 
 interface AboutProps {}
 
 const About: FC<AboutProps> = () => (
   <div className="About">
+    <Header />
     <p>
       At <strong>SOFAZONE</strong>, we believe that your living space deserves more than just furniture –
       <br />
