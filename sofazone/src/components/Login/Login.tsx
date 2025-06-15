@@ -9,22 +9,27 @@ import { useNavigate } from 'react-router-dom';
 const Login: FC = () => {
   const loginUser = async (value: LoginModel) => {
     try {
-      const response = await fetch('http://localhost:3000/users');
+      debugger
+      const response = await fetch('http://localhost:3001/users');
       const users = await response.json();
 
       const user = users.find(
         (u: any) => u.email === value.email && u.password === value.password
       );
-
+      
       if (user) {
         console.log('משתמש קיים:', user);
         localStorage.setItem('loggedUser', JSON.stringify(user));
+        signupRoute('/homePage'); // נווטי מפה
+
       }
       else {
-        alert('המשתמש לא קיים. נעבור לעמוד הרשמה.');
+        // alert('המשתמש לא קיים. נעבור לעמוד הרשמה.');
+        <small>kt ehho</small>
         // window.location.href = '/signup';
       }
     } catch (err) {
+      debugger
       console.error('שגיאה בכניסה:', err);
       alert('הייתה שגיאה בשרת, נסי שוב מאוחר יותר.');
     }
@@ -76,8 +81,8 @@ const Login: FC = () => {
           <a href="#">Forgot password?</a>
         </div> */}
 
-        <button type="submit" className="submit-btn" /*onClick={() => signupRoute('/homePage')}*/
-        >Sign In</button>
+        <button type="submit" className="submit-btn" >Sign In</button>
+
       </form>
 
       <div className="or-divider">or continue with</div>
