@@ -23,7 +23,7 @@ const Header: FC<HeaderProps> = () => {
             <label className="nav-link" onClick={()=>{headerNavigate('/Products')}}>Products</label>
           </li>
           <li className="nav-item">
-            <label className="nav-link" onClick={()=>{headerNavigate('/Login')}}>Profile</label>
+            <label className="nav-link" onClick={()=>{headerNavigate('/Profile')}}>Profile</label>
           </li>
           <li className="nav-item">
             <label className="nav-link" onClick={()=>{headerNavigate('/Cart')}}>Cart</label>

@@ -1,1 +1,41 @@
-.About {}
+.About {
+    .about-container {
+        display: flex;
+        flex-direction: row-reverse; // התמונה תבוא מצד ימין, המלל מצד שמאל
+        height: calc(100vh - 80px);
+        overflow: hidden;
+    }
+
+    .about-text {
+        flex: 1;
+        background-color: #f9f9f9;
+        padding: 4rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Heebo';
+        font-size: 1.1rem;
+        line-height: 1.8;
+        position: relative;
+        z-index: 1;
+        direction: ltr;
+    }
+
+    .about-image {
+        flex: 1;
+        background-image: url('https://cdn.pixabay.com/photo/2017/08/02/01/01/living-room-2569325_1280.jpg');
+        background-size: cover;
+        background-position: center;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: skewX(12deg);
+        transform-origin: top right;
+    }
+
+    .about-image::before {
+        content: "";
+        display: block;
+        height: 100%;
+        transform: skewX(-10deg);
+        transform-origin: top left;
+    }
+}
