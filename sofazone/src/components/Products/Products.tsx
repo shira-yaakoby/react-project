@@ -52,7 +52,7 @@ const Products: FC = () => {
       <div className="products-header">
         <div className="filters">
           <select onChange={e => setCategory(e.target.value)} value={category}>
-            <option value="all">all</option>
+            <option value="all">All</option>
             {categories.map(cat => (
               <option key={cat} value={cat}>
                 {cat}
@@ -60,10 +60,10 @@ const Products: FC = () => {
             ))}
           </select>
           <select onChange={e => setSortOrder(e.target.value)} value={sortOrder}>
-            <option value="default">ללא מיון</option>
-            <option value="asc">מהזול ליקר</option>
-            <option value="desc">מהיקר לזול</option>
-            <option value="bestseller">מומלצים</option>
+            <option value="default">Random</option>
+            <option value="asc">Low To High</option>
+            <option value="desc">High To Low</option>
+            <option value="bestseller">Popular</option>
           </select>
         </div>
       </div>
@@ -77,7 +77,7 @@ const Products: FC = () => {
           >
             <img src={product.image} alt={product.title} />
             <h3>{product.title}</h3>
-            <p>{product.price} ₪</p>
+            <p>{product.price} $</p>
           </div>
         ))}
       </div>

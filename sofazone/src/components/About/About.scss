@@ -1,7 +1,7 @@
 .About {
     .about-container {
         display: flex;
-        flex-direction: row-reverse; // התמונה תבוא מצד ימין, המלל מצד שמאל
+        flex-direction: row-reverse; 
         height: calc(100vh - 80px);
         overflow: hidden;
     }
@@ -31,9 +31,7 @@
         background-image: url('https://cdn.pixabay.com/photo/2017/08/02/01/01/living-room-2569325_1280.jpg');
         background-size: cover;
         background-position: center;
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-        transform: skewX(12deg);
-        transform-origin: top right;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
     }
 
     .about-image::before {

@@ -79,7 +79,7 @@ const Profile: FC<ProfileProps> = () => {
           <input
             id="name"
             name="name"
-            type="text"
+            type="name"
             onChange={(e) => { formik.handleChange(e); if (updateMessage) setUpdateMessage(null); }}
             value={formik.values.name}
             placeholder="Your full name"
