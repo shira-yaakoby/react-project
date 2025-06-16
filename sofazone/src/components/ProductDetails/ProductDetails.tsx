@@ -25,10 +25,13 @@ const ProductDetails: FC<ProductDetailsProps> = () => {
       <img src={product.image} alt={product.title} width="300" />
       <p><strong>description:</strong> {product.description}</p>
       <p><strong>category:</strong> {product.category}</p>
-      <p><strong>price:</strong> {product.price} ₪</p>
-      <p><strong>buyCount:</strong> {product.buyCount} times</p>
+      <p><strong>price:</strong> {product.price} $</p>
+      {/* <p><strong>buyCount:</strong> {product.buyCount} times</p> */}
       <div>
         <button className='btn'>add to cart</button>
+        <br />
+        -<label>amount</label>+
+        <div>המלצות</div>
       </div>
     </div>
   );

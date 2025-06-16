@@ -109,7 +109,7 @@
       "id": "7",
       "title": "Recliner with Massage Option",
       "description": "Relaxing recliner with built-in massager",
-      "image": "https://www.google.com/imgres?q=%D7%A1%D7%A4%D7%95%D7%AA%20%D7%99%D7%A4%D7%95%D7%AA%20%D7%A2%D7%93%D7%9B%D7%A0%D7%99%D7%95%D7%AA&imgurl=https%3A%2F%2Fwww.house-design.shop%2Fimages%2Fitempics%2F1056_130420231319271_large.jpg&imgrefurl=https%3A%2F%2Fwww.house-design.shop%2Fproduct%2F%25D7%25A1%25D7%25A4%25D7%25AA-%25D7%25A9%25D7%2596%25D7%259C%25D7%2595%25D7%25A0%25D7%2592-%25D7%25A4%25D7%2599%25D7%25A0%25D7%25AA%25D7%2599%25D7%25AA-%25D7%259E%25D7%2591%25D7%2593-%25D7%25A7%25D7%2598%25D7%2599%25D7%25A4%25D7%25AA%25D7%2599---%25D7%2593%25D7%2592%25D7%259D-%25D7%2593%25D7%2595%25D7%25A8&docid=epRKAya0ZPhz2M&tbnid=Z7NBvAaIv9OeVM&vet=12ahUKEwji4oeNzPSNAxX29wIHHVrhNX8QM3oFCIwBEAA..i&w=560&h=448&hcb=2&ved=2ahUKEwji4oeNzPSNAxX29wIHHVrhNX8QM3oFCIwBEAA",
+      "image": "https://www.house-design.shop/images/itempics/808_240320211418351_large.jpg",
       "category": "Recliners",
       "price": 2590,
       "buyCount": 6
@@ -118,7 +118,7 @@
       "id": "8",
       "title": "Slim Recliner Chair",
       "description": "Compact design recliner for small spaces",
-      "image": "https://example.com/images/slim.jpg",
+      "image": "https://shpitzer.co.il/wp-content/uploads/2024/09/EPIKA_110588-scaled-1.jpg",
       "category": "Recliners",
       "price": 1290,
       "buyCount": 1
@@ -127,7 +127,7 @@
       "id": "9",
       "title": "Modern Armchair",
       "description": "Light gray fabric armchair with oak legs",
-      "image": "https://example.com/images/modern.jpg",
+      "image": "https://polram.co.il/wp-content/uploads/2024/03/EPIKA_130136-kopyala-kopya-scaled.webp",
       "category": "Armchairs",
       "price": 990,
       "buyCount": 4
@@ -136,7 +136,7 @@
       "id": "10",
       "title": "Classic Blue Armchair",
       "description": "Royal blue armchair with plush seating",
-      "image": "https://example.com/images/blue.jpg",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2023/05/tango_pour_web.jpg__1232x693_q85_crop_subsampling-2.jpg",
       "category": "Armchairs",
       "price": 1150,
       "buyCount": 2
@@ -194,6 +194,105 @@
       "category": "Sofa Beds",
       "price": 2390,
       "buyCount": 5
+    },
+    {
+      "id": "17",
+      "title": "Milan Modern Sofa",
+      "description": "Contemporary sofa with soft fabric and wooden legs",
+      "image": "https://www.designliving.co.il/wp-content/uploads/2022/10/milan_sofa.jpg",
+      "category": "Sofas",
+      "price": 3190,
+      "buyCount": 6
+    },
+    {
+      "id": "18",
+      "title": "Vienna Fabric Sofa",
+      "description": "Elegant 3-seater sofa with cozy cushions",
+      "image": "https://www.dolce-divani.co.il/wp-content/uploads/2022/07/1-2_800x531.jpg",
+      "category": "Sofas",
+      "price": 2890,
+      "buyCount": 4
+    },
+    {
+      "id": "19",
+      "title": "Stockholm Lounge Sofa",
+      "description": "Wide lounge sofa with removable covers",
+      "image": "https://king-garden.co.il/wp-content/uploads/2021/04/1CS030145AA1_01102020100506_large.jpg",
+      "category": "Sofas",
+      "price": 3790,
+      "buyCount": 8
+    },
+    {
+      "id": "20",
+      "title": "Berlin Velvet Sofa",
+      "description": "Luxurious velvet 2-seater sofa in emerald green",
+      "image": "https://www.or-design.co.il/images/itempics/1587_160820181807394.jpg",
+      "category": "Sofas",
+      "price": 3390,
+      "buyCount": 5
+    },
+    {
+      "id": "21",
+      "title": "Paris Linen Sofa",
+      "description": "Light beige sofa with soft linen fabric and deep seating",
+      "image": "https://www.dolce-divani.co.il/wp-content/uploads/2022/07/1-2_800x531.jpg",
+      "category": "Sofas",
+      "price": 2990,
+      "buyCount": 3
+    },
+    {
+      "id": "22",
+      "title": "London Classic Sofa",
+      "description": "Timeless 3-seater sofa with button-tufted back",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTofwxgrACMmIHuWsBFb_BREqbTT4nnjWvTOA&s",
+      "category": "Sofas",
+      "price": 3190,
+      "buyCount": 7
+    },
+    {
+      "id": "23",
+      "title": "Copenhagen Minimal Sofa",
+      "description": "Minimal design sofa in Scandinavian style",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSumqpzE0K0svF1asbx5rO6Fq0ZA_iATJM0eQ&s",
+      "category": "Sofas",
+      "price": 2790,
+      "buyCount": 2
+    },
+    {
+      "id": "24",
+      "title": "Zurich Wide Sofa",
+      "description": "Large family sofa with extra cushions",
+      "image": "https://king-garden.co.il/wp-content/uploads/2021/04/1CS030145AA1_01102020100506_large.jpg",
+      "category": "Sofas",
+      "price": 4590,
+      "buyCount": 6
+    },
+    {
+      "id": "25",
+      "title": "Tel Aviv Urban Sofa",
+      "description": "Compact sofa perfect for small urban apartments",
+      "image": "https://www.ace.co.il/media/catalog/product/cache/d84109d1ee27fff083ee0c648cf90f2b/6/0/6000973_3_edit.jpg",
+      "category": "Sofas",
+      "price": 2590,
+      "buyCount": 5
+    },
+    {
+      "id": "26",
+      "title": "Helsinki Soft Sofa",
+      "description": "Ultra-soft sofa with fluffy cushions and wide armrests",
+      "image": "https://www.or-design.co.il/images/itempics/1587_160820181807394.jpg",
+      "category": "Sofas",
+      "price": 3690,
+      "buyCount": 4
+    },
+    {
+      "id": "27",
+      "title": "Prague Luxury Sofa",
+      "description": "High-end sofa with top-quality fabric and golden legs",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBlhb6BQkw8BUSY0d_ApmWkuZWnOYw-iKPKQ&s",
+      "category": "Sofas",
+      "price": 4990,
+      "buyCount": 9
     }
   ],
   "reviews": [
