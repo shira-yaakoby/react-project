@@ -8,17 +8,18 @@
 
     .about-text {
         flex: 1;
-        background-color: #f9f9f9;
+        background-color: transparent;
         padding: 4rem 3rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: 'Heebo';
         font-size: 1.1rem;
         line-height: 1.8;
         position: relative;
         z-index: 1;
         direction: ltr;
+        color: #5a4c41;
+        font-family: 'Rubik', sans-serif;
     }
 
     .about-image {
