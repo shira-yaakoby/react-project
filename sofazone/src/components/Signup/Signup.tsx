@@ -22,7 +22,6 @@ const Signup: FC<SignupProps> = () => {
 
       const response = await axios.post('http://localhost:3001/users', values);
       console.log('המשתמש נוסף:', response.data);
-  
       loginNavigation('/login');
     } catch (error) {
       console.error('שגיאה בהרשמה:', error);
