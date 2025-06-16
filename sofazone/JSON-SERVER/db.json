@@ -199,7 +199,7 @@
       "id": "17",
       "title": "Milan Modern Sofa",
       "description": "Contemporary sofa with soft fabric and wooden legs",
-      "image": "https://www.designliving.co.il/wp-content/uploads/2022/10/milan_sofa.jpg",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2023/12/cosmic_pour_web.jpg__1232x693_q85_crop_subsampling-2-e1703930497412.jpg",
       "category": "Sofas",
       "price": 3190,
       "buyCount": 6
@@ -244,7 +244,7 @@
       "id": "22",
       "title": "London Classic Sofa",
       "description": "Timeless 3-seater sofa with button-tufted back",
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTofwxgrACMmIHuWsBFb_BREqbTT4nnjWvTOA&s",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2022/09/item_ambiance.jpg__1232x693_q85_crop_subsampling-2-600x338.jpg",
       "category": "Sofas",
       "price": 3190,
       "buyCount": 7
@@ -262,7 +262,7 @@
       "id": "24",
       "title": "Zurich Wide Sofa",
       "description": "Large family sofa with extra cushions",
-      "image": "https://king-garden.co.il/wp-content/uploads/2021/04/1CS030145AA1_01102020100506_large.jpg",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2022/09/wsi-imageoptim-wsi-imageoptim-Small_0028_0540.jpg",
       "category": "Sofas",
       "price": 4590,
       "buyCount": 6
@@ -280,7 +280,7 @@
       "id": "26",
       "title": "Helsinki Soft Sofa",
       "description": "Ultra-soft sofa with fluffy cushions and wide armrests",
-      "image": "https://www.or-design.co.il/images/itempics/1587_160820181807394.jpg",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2022/10/wsi-imageoptim-wsi-imageoptim-ROOFTOP.jpg",
       "category": "Sofas",
       "price": 3690,
       "buyCount": 4
@@ -293,6 +293,123 @@
       "category": "Sofas",
       "price": 4990,
       "buyCount": 9
+    },
+    {
+      "id": "28",
+      "title": "Napoli Chaise Lounge",
+      "description": "Elegant chaise lounge with soft velvet",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2022/09/wsi-imageoptim-810X540_0009_LONG-ISLAND.jpg",
+      "category": "Sofas",
+      "price": 2690,
+      "buyCount": 3
+    },
+    {
+      "id": "29",
+      "title": "Tokyo Compact Recliner",
+      "description": "Minimalist recliner with push-back mechanism",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2022/10/wsi-imageoptim-wsi-imageoptim-1600x720-1000x450-1.jpg",
+      "category": "Recliners",
+      "price": 1390,
+      "buyCount": 2
+    },
+    {
+      "id": "30",
+      "title": "Sydney Corner Sofa",
+      "description": "L-shaped sofa with removable covers",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2023/12/LAGOON-SALON-1024x576.jpeg",
+      "category": "Corner Sofas",
+      "price": 3890,
+      "buyCount": 5
+    },
+    {
+      "id": "31",
+      "title": "Toronto Sofa Bed",
+      "description": "3-seater convertible to bed with storage",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2023/12/Reverso-2022-02-Tx300-1-scaled-e1703921163318-1-600x281.jpg",
+      "category": "Sofa Beds",
+      "price": 2890,
+      "buyCount": 3
+    },
+    {
+      "id": "32",
+      "title": "Brussels Modern Sofa",
+      "description": "Modern fabric sofa in ash gray with chrome legs",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2024/07/looping1_fullscreen-600x400.jpg",
+      "category": "Sofas",
+      "price": 3090,
+      "buyCount": 4
+    },
+    {
+      "id": "33",
+      "title": "Lisbon Folding Sofa Bed",
+      "description": "Convertible folding sofa bed for tight spaces",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2022/09/wsi-imageoptim-810X540.KELVIN.657.1-600x400.jpg",
+      "category": "Sofa Beds",
+      "price": 2190,
+      "buyCount": 2
+    },
+    {
+      "id": "34",
+      "title": "Geneva Relax Sofa",
+      "description": "Deep seating sofa with extra plush cushions",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2025/02/arcadia_v2-600x350.jpg",
+      "category": "Sofas",
+      "price": 3790,
+      "buyCount": 4
+    },
+    {
+      "id": "35",
+      "title": "Dublin Armchair",
+      "description": "Wide comfortable armchair with modern lines",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2023/08/PASH-600x336.jpg",
+      "category": "Armchairs",
+      "price": 1090,
+      "buyCount": 3
+    },
+     {
+      "id": "36",
+      "title": "Vienna Curved Sofa",
+      "description": "Designer sofa with elegant curved silhouette",
+      "image": "https://www.dandesigncenter.co.il/wp-content/uploads/2018/08/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%99%D7%A9%D7%99%D7%91%D7%94-%D7%9E%D7%95%D7%93%D7%95%D7%9C%D7%A8%D7%99%D7%AA-DREAM.jpg",
+      "category": "Sofas",
+      "price": 4190,
+      "buyCount": 2
+    },
+    {
+      "id": "37",
+      "title": "Oslo Modular Recliner",
+      "description": "Recliner with adjustable headrest and footrest",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2023/04/0182-1-1-e1706078593785-1024x677.jpg",
+      "category": "Recliners",
+      "price": 3490,
+      "buyCount": 3
+    },
+    {
+      "id": "38",
+      "title": "Capri U-Shape Sofa",
+      "description": "Large U-shape sofa for spacious living rooms",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2022/10/wsi-imageoptim-wsi-imageoptim-wsi-imageoptim-810X540_0015_BERMUDE-1.jpg",
+      "category": "Corner Sofas",
+      "price": 5290,
+      "buyCount": 6
+    },
+    {
+      "id": "39",
+      "title": "Berlin Pull-out Bed Sofa",
+      "description": "Sleeper sofa with quick pull-out mechanism",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2022/09/%D7%A2%D7%99%D7%A6%D7%95%D7%91-%D7%9C%D7%9C%D7%90-%D7%A9%D7%9D-2023-12-13T114459.977.png",
+      "category": "Sofa Beds",
+      "price": 2590,
+      "buyCount": 2
+    },
+    {
+      "id": "40",
+      "title": "Helsinki Swivel Armchair",
+      "description": "Modern swivel armchair with boucle fabric",
+      "image": "https://divanicenter.co.il/wp-content/uploads/2023/03/5408140-%D7%AA%D7%9E%D7%95%D7%A0%D7%AA-%D7%9E%D7%95%D7%A6%D7%A8-1.png",
+      "category": "Armchairs",
+      "price": 1290,
+      "buyCount": 4
     }
   ],
   "reviews": [
