@@ -37,7 +37,7 @@
     },
     {
       "id": "1345",
-      "name": "שירה יעקבי",
+      "name": "shir",
       "email": "shira0583267831@gmail.com",
       "password": "123123123Aa@",
       "isAdmin": false
@@ -440,6 +440,76 @@
       "productId": 13,
       "comment": "Great for guests. Easy to fold out.",
       "rating": 5
-    }
+    },
+    {
+  "id": "5",
+  "userId": 1,
+  "productId": 3,
+  "comment": "Stylish and comfortable. Great quality fabric.",
+  "rating": 5
+},
+{
+  "id": "6",
+  "userId": 3,
+  "productId": 4,
+  "comment": "Too big for my space, but very elegant.",
+  "rating": 4
+},
+{
+  "id": "7",
+  "userId": 4,
+  "productId": 5,
+  "comment": "Color didn't match what I expected.",
+  "rating": 2
+},
+{
+  "id": "8",
+  "userId": 2,
+  "productId": 6,
+  "comment": "Great sofa bed for guests. Easy to use.",
+  "rating": 5
+},
+{
+  "id": "9",
+  "userId": 1,
+  "productId": 7,
+  "comment": "Excellent value for the price.",
+  "rating": 4
+},
+{
+  "id": "10",
+  "userId": 40,
+  "productId": 8,
+  "comment": "Love the texture and softness. Worth it!",
+  "rating": 5
+},
+{
+  "id": "11",
+  "userId": 1345,
+  "productId": 9,
+  "comment": "Delivery was late but product is great.",
+  "rating": 4
+},
+{
+  "id": "12",
+  "userId": "066",
+  "productId": 10,
+  "comment": "Really firm seating – depends on preference.",
+  "rating": 3
+},
+{
+  "id": "13",
+  "userId": 2,
+  "productId": 11,
+  "comment": "Perfect for my office lounge.",
+  "rating": 5
+},
+{
+  "id": "14",
+  "userId": 3,
+  "productId": 12,
+  "comment": "Looks better in pictures than in real life.",
+  "rating": 2
+}
   ]
 }
