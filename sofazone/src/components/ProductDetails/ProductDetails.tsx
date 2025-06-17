@@ -68,17 +68,18 @@ const ProductDetails: FC = () => {
           </div>
 
           <div className="reviews-section">
-            <button className="toggle-btn" onClick={() => setShowReviews(prev => !prev)}>
-              המלצות {showReviews ? '▲' : '▼'}
-            </button>
+            <p onClick={() => setShowReviews(prev => !prev)} className="toggle-btn">
+              <strong>Reviews:</strong> {showReviews ? '▾' : '▸'}
+            </p>
             {showReviews && (
               <ul className="review-list">
                 {reviews.length === 0 ? (
-                  <li>אין המלצות על מוצר זה עדיין.</li>
+                  <li>There are no reviews for this product yet :(</li>
                 ) : (
                   reviews.map(r => (
                     <li key={r.id}>
-                      <strong>{getUserName(r.userId)}:</strong> {r.comment} ({r.rating}★)
+                      <span className="stars">{'★'.repeat(Number(r.rating))}</span>
+                      <strong>{getUserName(r.userId)}:</strong> {r.comment}
                     </li>
                   ))
                 )}
