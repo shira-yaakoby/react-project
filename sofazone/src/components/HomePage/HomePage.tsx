@@ -5,10 +5,10 @@ import Header from '../Header/Header';
 import '../../scss/login-signup-style.scss';
 import './HomePage.scss'
 
-const HomePage: FC = () => (
-  //const productsNavigation = useNavigate();
+const HomePage: FC = () => {
+  const productsNavigation = useNavigate();
 
-  <div className="HomePage">
+  return <div className="HomePage">
     <Header />
     <div className="homepage-content">
       <h1 className="homepage-title">Welcome to SOFAZONE</h1>
@@ -44,10 +44,10 @@ const HomePage: FC = () => (
       </section>
 
       <section className="cta-section">
-        <button className="submit-btn" /*onClick={()=>{productsNavigation('/Products')}}*/>Browse All Products</button>
+        <button className="submit-btn"onClick={()=>{productsNavigation('/Products')}}>Browse All Products</button>
       </section>
     </div>
   </div>
-);
+}
 
 export default HomePage;
