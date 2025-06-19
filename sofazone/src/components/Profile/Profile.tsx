@@ -10,113 +10,180 @@ interface ProfileProps { }
 
 const Profile: FC<ProfileProps> = () => {
   const [updateMessage, setUpdateMessage] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const fetchUserData = async () => {
-    try {
-      // כאן תחליף לכתובת API אמיתית שמחזירה פרטי משתמש
-      const res = await fetch('http://localhost:3001/users/123');
-      if (!res.ok) throw new Error('Failed to fetch');
-      const data = await res.json();
-      formik.setValues({
-        name: data.name || '',
-        email: data.email || '',
-        password: data.phone || '',
-      });
-    } catch (err) {
-      console.error(err);
-      setUpdateMessage('Error loading user data.');
-    }
-  };
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
-  const updateUser = async (values: ProfileModel) => {
-    try {
-      // כאן ה-API לעדכון פרטים
-      const res = await fetch('http://localhost:3001/users/123', {
-        method: 'PUT', // או PATCH לפי API שלך
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      });
-      if (res.ok) {
-        setUpdateMessage('Profile updated successfully!');
-        // אם רוצים, מפנים לדף אחר אחרי עדכון
-        // navigate('/homePage');
-      } else {
-        setUpdateMessage('Failed to update profile.');
-      }
-    } catch (err) {
-      console.error(err);
-      setUpdateMessage('Server error. Try again later.');
-    }
-  };
-
-  const formik = useFormik({
+  const formik = useFormik<ProfileModel>({
     initialValues: {
       name: '',
       email: '',
       password: '',
+      isAdmin: false,
     },
     validationSchema: yup.object({
       name: yup.string().required('Name is required'),
       email: yup.string().email('Invalid email').required('Email is required'),
-      phone: yup.string().matches(/^\+?[0-9\s\-]{7,15}$/, 'Invalid phone number').nullable(),
+      password: yup.string().min(6, 'Password must be at least 6 characters'),
+      isAdmin: yup.boolean().required('Admin status is required'),
     }),
-    onSubmit: updateUser,
+    onSubmit: async (values) => {
+      try {
+        const res = await fetch(`http://localhost:3001/users/${user.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...user,
+            name: values.name,
+            email: values.email,
+            password: values.password || user.password,
+            isAdmin: values.isAdmin,
+          }),
+        });
+
+        if (res.ok) {
+          setUpdateMessage('Profile updated successfully!');
+        } else {
+          setUpdateMessage('Failed to update profile.');
+        }
+      } catch (err) {
+        console.error(err);
+        setUpdateMessage('Server error. Try again later.');
+      }
+    },
   });
-  return <div className="Profile">
-    <Header />
-    <div className="enter">
-      <div className="enter-box">
-        <h2>Edit Profile</h2>
-        <p className="subtitle">Update your personal details</p>
 
-        <form onSubmit={formik.handleSubmit} className="login">
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            name="name"
-            type="name"
-            onChange={(e) => { formik.handleChange(e); if (updateMessage) setUpdateMessage(null); }}
-            value={formik.values.name}
-            placeholder="Your full name"
-            required
-          />
-          {formik.errors.name && formik.touched.name ? (
-            <small className="text-danger">{formik.errors.name}</small>
-          ) : null}
+  useEffect(() => {
+    const localUser = JSON.parse(localStorage.getItem('loggedUser') || '{}');
 
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            onChange={(e) => { formik.handleChange(e); if (updateMessage) setUpdateMessage(null); }}
-            value={formik.values.email}
-            placeholder="your@email.com"
-            required
-          />
-          {formik.errors.email && formik.touched.email ? (
-            <small className="text-danger">{formik.errors.email}</small>
-          ) : null}
+    if (!localUser?.id) {
+      setUpdateMessage('User not logged in.');
+      return;
+    }
 
-          <button type="submit" className="submit-btn">
-            Save Changes
-          </button>
+    setUser(localUser);
+setIsAdmin(Boolean(localUser.isAdmin));
 
-          {updateMessage && (
-            <div style={{ color: updateMessage.includes('successfully') ? 'green' : 'darkred', marginTop: '1rem', textAlign: 'center' }}>
-              {updateMessage}
-            </div>
-          )}
-        </form>
+    const fetchUserData = async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/users/${localUser.id}`);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        formik.setValues({
+          name: data.name || '',
+          email: data.email || '',
+          password: '',
+          isAdmin: data.isAdmin || false,
+        });
+      } catch (err) {
+        console.error(err);
+        setUpdateMessage('Error loading user data.');
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  return (
+    <div className="Profile">
+      <Header />
+      <div className="enter">
+        <div className="enter-box">
+          <h2>Edit Profile</h2>
+          <p className="subtitle">Update your personal details</p>
+
+          <form onSubmit={formik.handleSubmit} className="login">
+            {/* Name */}
+            <label htmlFor="name">Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              className="input"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+              placeholder="Your full name"
+            />
+            {formik.errors.name && formik.touched.name && (
+              <small className="text-danger">{formik.errors.name}</small>
+            )}
+
+            {/* Email */}
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className="input"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              placeholder="your@email.com"
+              disabled={!isAdmin}
+            />
+            {formik.errors.email && formik.touched.email && (
+              <small className="text-danger">{formik.errors.email}</small>
+            )}
+            {!isAdmin && (
+              <small className="readonly-note">Only admins can change email</small>
+            )}
+
+            {/* Password */}
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              className="input"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              placeholder="Enter new password"
+            />
+            {formik.errors.password && formik.touched.password && (
+              <small className="text-danger">{formik.errors.password}</small>
+            )}
+
+            {/* Toggle isAdmin */}
+            <label htmlFor="isAdmin">Admin Status</label>
+            <label className="toggle-switch">
+              <input
+                type="checkbox"
+                id="isAdmin"
+                name="isAdmin"
+                checked={formik.values.isAdmin}
+                onChange={() => formik.setFieldValue('isAdmin', !formik.values.isAdmin)}
+                disabled={!isAdmin}
+              />
+              <span className="slider round" />
+            </label>
+            {!isAdmin && (
+              <small className="readonly-note">Only admins can change admin status</small>
+            )}
+
+
+            {/* Submit */}
+            <button type="submit" className="submit-btn">Save Changes</button>
+
+            {/* Message */}
+            {updateMessage && (
+              <div
+                style={{
+                  color: updateMessage.includes('success') ? 'green' : 'darkred',
+                  marginTop: '1rem',
+                  textAlign: 'center',
+                }}
+              >
+                {updateMessage}
+              </div>
+            )}
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-}
+  );
+};
 
 
 export default Profile;
