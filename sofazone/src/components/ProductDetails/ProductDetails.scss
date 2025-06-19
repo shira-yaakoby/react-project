@@ -12,6 +12,20 @@
             flex-direction: column;
             gap: 1.5rem;
             margin-top: 120px;
+            
+        .added-message {
+            margin-top: 1rem;
+            color: #c69b6d;
+            font-weight: 600;
+            background-color: white;
+            padding: 0.5rem 1rem;
+            border: 1px solid #b18f5d;
+            border-radius: 8px;
+            width: fit-content;
+            transition: opacity 0.5s ease;
+            align-items: center;
+            justify-content: space-between;
+        }
         }
 
         .right-side {
@@ -157,5 +171,6 @@
                 }
             }
         }
+
     }
 }

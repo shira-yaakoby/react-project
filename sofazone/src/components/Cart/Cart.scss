@@ -1,1 +1,121 @@
-.Cart {}
+.Cart {
+
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #8b7564;
+    margin-bottom: 2rem;
+  }
+
+  .cart-flex {
+    padding: 2rem;
+    font-family: 'poppins-400', sans-serif;
+    background-color: #fdf9f5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cart-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .cart-item {
+    display: flex;
+    gap: 1rem;
+    background-color: #fff;
+    border: 1px solid #e7d8c2;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 3px 10px rgba(198, 155, 109, 0.15);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .cart-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.3rem;
+      flex: 1;
+
+      h4 {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #5a4c41;
+        margin-bottom: 0.3rem;
+      }
+
+      .info-line {
+        padding-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        color: #7b6658;
+        font-size: 0.95rem;
+      }
+    }
+  }
+
+  .cart-summary {
+    flex: 1;
+    background-color: #fff;
+    border: 1px solid #e7d8c2;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 3px 10px rgba(198, 155, 109, 0.15);
+    align-self: flex-start;
+    text-align: center;
+    min-width: 250px;
+
+    h3 {
+      font-size: 1.5rem;
+      color: #5a4c41;
+      margin-bottom: 1.5rem;
+    }
+
+    .pay-button {
+      background: linear-gradient(to right, #c69b6d, #b18f5d);
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        background: linear-gradient(to right, #b88a56, #a9794b);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #a08370;
+    margin-top: 2rem;
+  }
+}

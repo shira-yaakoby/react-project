@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import '../../scss/login-signup-style.scss';
+import '../../scss/form-style.scss';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { SignupModel } from '../../models/SignupModel'; 

@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import './Profile.scss';
+import '../../scss/form-style.scss';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
@@ -98,7 +99,7 @@ setIsAdmin(Boolean(localUser.isAdmin));
             <input
               id="name"
               name="name"
-              type="text"
+              type="name"
               className="input"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

@@ -3,6 +3,8 @@ import './ProductDetails.scss';
 import Header from '../Header/Header';
 import { useParams } from 'react-router';
 import { ProductModel } from '../../models/ProductModel';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../store/CartSlice';
 
 interface Review {
   id: string;
@@ -24,6 +26,8 @@ const ProductDetails: FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [showReviews, setShowReviews] = useState(false);
   const [amount, setAmount] = useState(1);
+  const [addedMessage, setAddedMessage] = useState('add to cart');
+
 
   useEffect(() => {
     fetch(`http://localhost:3001/products/${id}`)
@@ -44,54 +48,68 @@ const ProductDetails: FC = () => {
     return user?.name || 'Unknown';
   };
 
-  if (!product) return <p>Loading...</p>;
+  const dispatch = useDispatch();
+
+const handleAddToCart = () => {
+  if (!product) return;
+  dispatch(addToCart({ product, amount }));
+  setAddedMessage('Product added to cart!');
+  setTimeout(()=>{  setAddedMessage('add to cart') }, 1000);
+};
+
+
+
 
   return (
     <div className="ProductDetails">
       <Header />
-      <div className="top-section">
-        <div className="left-side">
-          <div className="info-section">
-            <h2>{product.title}</h2>
-            <p><strong>Price:</strong> {product.price} ₪</p>
-            <p><strong>Description:</strong> {product.description}</p>
-            <p><strong>Category:</strong> {product.category}</p>
-          </div>
-
-          <div className="purchase-section">
-            <div className="quantity-controls">
-              <button onClick={() => setAmount(prev => Math.max(prev - 1, 1))}>-</button>
-              <label>{amount}</label>
-              <button onClick={() => setAmount(prev => prev + 1)}>+</button>
+      {product ? (
+        <div className="top-section">
+          <div className="left-side">
+            <div className="info-section">
+              <h2>{product.title}</h2>
+              <p><strong>Price:</strong> {product.price}$</p>
+              <p><strong>Description:</strong> {product.description}</p>
+              <p><strong>Category:</strong> {product.category}</p>
             </div>
-            <button className="btn">Add to Cart</button>
+
+            <div className="purchase-section">
+              <div className="quantity-controls">
+                <button onClick={() => setAmount(prev => Math.max(prev - 1, 1))}>-</button>
+                <label>{amount}</label>
+                <button onClick={() => setAmount(prev => prev + 1)}>+</button>
+              </div>
+              <button className="btn" onClick={handleAddToCart}>{addedMessage}</button>
+            </div>
+
+            <div className="reviews-section">
+              <p onClick={() => setShowReviews(prev => !prev)} className="toggle-btn">
+                <strong>Reviews:</strong> {showReviews ? '▾' : '▸'}
+              </p>
+              {showReviews && (
+                <ul className="review-list">
+                  {reviews.length === 0 ? (
+                    <li>There are no reviews for this product yet :(</li>
+                  ) : (
+                    reviews.map(r => (
+                      <li key={r.id}>
+                        <span className="stars">{'★'.repeat(Number(r.rating))}</span>
+                        <strong>{getUserName(r.userId)}:</strong> {r.comment}
+                      </li>
+                    ))
+                  )}
+                </ul>
+              )}
+            </div>
           </div>
 
-          <div className="reviews-section">
-            <p onClick={() => setShowReviews(prev => !prev)} className="toggle-btn">
-              <strong>Reviews:</strong> {showReviews ? '▾' : '▸'}
-            </p>
-            {showReviews && (
-              <ul className="review-list">
-                {reviews.length === 0 ? (
-                  <li>There are no reviews for this product yet :(</li>
-                ) : (
-                  reviews.map(r => (
-                    <li key={r.id}>
-                      <span className="stars">{'★'.repeat(Number(r.rating))}</span>
-                      <strong>{getUserName(r.userId)}:</strong> {r.comment}
-                    </li>
-                  ))
-                )}
-              </ul>
-            )}
+          <div className="right-side">
+            <img src={product.image} alt={product.title} />
           </div>
         </div>
-
-        <div className="right-side">
-          <img src={product.image} alt={product.title} />
-        </div>
-      </div>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 };

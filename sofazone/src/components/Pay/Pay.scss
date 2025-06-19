@@ -1,0 +1,150 @@
+.Pay {
+  .Pay {
+  font-family: 'Assistant', sans-serif;
+
+  .enter {
+    background: linear-gradient(135deg, #faf5ef 0%, #f3e9db 100%);
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255, 233, 188, 0.2) 0%, transparent 70%),
+      radial-gradient(circle at 80% 80%, rgba(255, 220, 170, 0.15) 0%, transparent 70%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    animation: floatingBackground 25s ease-in-out infinite alternate;
+  }
+
+  .enter-box {
+    background: white;
+    padding: 2.5rem 3rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 40px rgba(203, 172, 125, 0.15);
+    width: 100%;
+    max-width: 1100px;
+    border: 1px solid #e7d8c2;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.015);
+    }
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #5c4433;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  form.checkout-form {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .columns-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  section {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .order-details {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+
+    ul.checkout-summary {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 1rem;
+
+      li {
+        padding: 0.25rem 0;
+        border-bottom: 1px solid #e7d8c2;
+        color: #5a4c41;
+        font-weight: 600;
+      }
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #5c4433;
+    }
+  }
+
+  label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #5a4c41;
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d8c8b4;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+    background-color: #fffefc;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: #c69b6d;
+      box-shadow: 0 0 0 3px rgba(198, 155, 109, 0.2);
+    }
+  }
+
+  button.submit-btn {
+    background: linear-gradient(to right, #c69b6d, #b18f5d);
+    color: white;
+    font-weight: 700;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: auto;
+    transition: background 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background: linear-gradient(to right, #b88a56, #a9794b);
+      transform: translateY(-2px);
+    }
+  }
+
+  .payment-icons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+    img {
+      width: 48px;
+      height: auto;
+    }
+  }
+}
+
+/* Background animation */
+@keyframes floatingBackground {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 5% 5%;
+  }
+}
+
+}

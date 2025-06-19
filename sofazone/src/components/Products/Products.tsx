@@ -43,9 +43,9 @@ const Products: FC = () => {
     setFilteredProducts(updated);
   }, [category, sortOrder, products]);
 
-  const handleClick = (id: string) => {
-    productsNavigate(`/products/${id}`);
-  };
+  // const handleClick = (id: string) => {
+  //   productsNavigate(`/Products/${id}`);
+  // };
 
   return <div className="Products">
       <Header />
@@ -73,7 +73,7 @@ const Products: FC = () => {
           <div
             key={product.id}
             className="product-card"
-            onClick={() => handleClick(product.id.toString())}
+            onClick={() => productsNavigate(`/Products/${product.id}`)}
           >
             <img src={product.image} alt={product.title} />
             <h3>{product.title}</h3>
