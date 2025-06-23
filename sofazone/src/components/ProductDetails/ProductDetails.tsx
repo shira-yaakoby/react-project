@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import './ProductDetails.scss';
 import Header from '../Header/Header';
-import { useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { ProductModel } from '../../models/ProductModel';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../store/CartSlice';
+import { log } from 'console';
 
 interface Review {
   id: string;
@@ -21,6 +22,8 @@ interface User {
 
 const ProductDetails: FC = () => {
   const { id } = useParams();
+  const location = useLocation(); // ← חדש
+  const productDetailsNavigate = useNavigate(); // ← חדש
   const [product, setProduct] = useState<ProductModel | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [users, setUsers] = useState<User[]>([]);
@@ -50,25 +53,48 @@ const ProductDetails: FC = () => {
 
   const dispatch = useDispatch();
 
-const handleAddToCart = () => {
-  if (!product) return;
-  dispatch(addToCart({ product, amount }));
-  setAddedMessage('Product added to cart!');
-  setTimeout(()=>{  setAddedMessage('add to cart') }, 1000);
-};
+  const handleAddToCart = () => {
+    if (!product) return;
+    dispatch(addToCart({ product, amount }));
+    setAddedMessage('Product added to cart!');
+    setTimeout(() => { setAddedMessage('add to cart') }, 1000);
+  };
 
+  const handleDeleteReview = (reviewId: string) => {
+    fetch(`http://localhost:3001/reviews/${reviewId}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        setReviews(prev => prev.filter(r => r.id !== reviewId));
 
-
-
+        // alert('Review deleted successfully');
+      })
+      .catch(error => {
+        console.error('Error deleting review:', error);
+        alert('Failed to delete review');
+      });
+  }
   return (
     <div className="ProductDetails">
       <Header />
+      <br />
+      <button
+        className="btn"
+        onClick={() => {
+          const query = location.search;
+          productDetailsNavigate(`/Products${query}`);
+        }}
+      >
+        ← return
+      </button>
+
       {product ? (
         <div className="top-section">
           <div className="left-side">
             <div className="info-section">
               <h2>{product.title}</h2>
               <p><strong>Price:</strong> {product.price}$</p>
+              <p><strong>Purchased:</strong> {product.buyCount}</p>
               <p><strong>Description:</strong> {product.description}</p>
               <p><strong>Category:</strong> {product.category}</p>
             </div>
@@ -91,15 +117,42 @@ const handleAddToCart = () => {
                   {reviews.length === 0 ? (
                     <li>There are no reviews for this product yet :(</li>
                   ) : (
-                    reviews.map(r => (
-                      <li key={r.id}>
-                        <span className="stars">{'★'.repeat(Number(r.rating))}</span>
-                        <strong>{getUserName(r.userId)}:</strong> {r.comment}
-                      </li>
-                    ))
+                    reviews.map(r => {
+                      const rawUser = localStorage.getItem('loggedUser');
+                      const loggedUser: User | null = rawUser ? JSON.parse(rawUser) : null;
+                      const isOwner = loggedUser && r.userId.toString() === loggedUser.id.toString();
+                      return (
+                        <li key={r.id}>
+                          <span className="stars">{'★'.repeat(Number(r.rating))}</span>
+                          <strong>{getUserName(r.userId)}:</strong> {r.comment}
+                          {isOwner ?
+                            <button className="delete-btn" onClick={() => handleDeleteReview(r.id)}>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <polyline points="3 6 5 6 21 6" />
+                                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                <path d="M10 11v6" />
+                                <path d="M14 11v6" />
+                                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                              </svg>
+                            </button> : null
+                          }
+                        </li>
+                      );
+                    })
                   )}
                 </ul>
               )}
+
             </div>
           </div>
 

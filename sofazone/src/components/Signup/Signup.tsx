@@ -1,16 +1,17 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import '../../scss/form-style.scss';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { SignupModel } from '../../models/SignupModel'; 
+import { SignupModel } from '../../models/SignupModel';
 import { useNavigate, useNavigation } from 'react-router-dom';
 import axios from 'axios';
 
-interface SignupProps {}
+interface SignupProps { }
 
 const Signup: FC<SignupProps> = () => {
   const loginNavigation = useNavigate();
-  
+  const [signupMessage, setSignupMessage] = useState<string | null>(null);
+
   const signupUser = async (values: SignupModel) => {
     try {
       const check = await axios.get(`http://localhost:3001/users?email=${values.email}`);
@@ -21,17 +22,17 @@ const Signup: FC<SignupProps> = () => {
       }
 
       const response = await axios.post('http://localhost:3001/users', values);
+      setSignupMessage('User added successfully. Please log in.');
       console.log('המשתמש נוסף:', response.data);
-      loginNavigation('/login');
     } catch (error) {
       console.error('שגיאה בהרשמה:', error);
       alert('שגיאה בהרשמה. נסי שוב.');
     }
   };
-  
+
 
   const myForm = useFormik({
-    initialValues:new SignupModel,
+    initialValues: new SignupModel,
     onSubmit: signupUser,
     validationSchema: yup.object().shape({
       name: yup.string().required('Name is required'),
@@ -79,8 +80,12 @@ const Signup: FC<SignupProps> = () => {
           <label htmlFor="password">Password</label>
           <input id="password" name="password" onChange={myForm.handleChange} type="password" placeholder="••••••••" required />
           {myForm.errors.password && <small className="text-danger">{myForm.errors.password}</small>}
-
-          <button type="submit" className="submit-btn">Sign Up</button>
+          <button type="submit" className="submit-btn" >Sign Up</button>
+          {signupMessage && (
+            <div style={{ color: 'green', marginTop: '1rem', textAlign: 'center' }}>
+              {signupMessage}
+            </div>
+          )}
         </form>
 
         <div className="or-divider">or continue with</div>
@@ -95,7 +100,7 @@ const Signup: FC<SignupProps> = () => {
         </button>
 
         <p style={{ textAlign: 'center', marginTop: '1rem', color: '#718096' }}>
-          Already have an account? <button className="submit-btn" onClick={()=>{loginNavigation('/login')}}>Login</button>
+          Already have an account? <button className="submit-btn" onClick={() => { loginNavigation('/login') }}>Login</button>
         </p>
       </div>
     </div>

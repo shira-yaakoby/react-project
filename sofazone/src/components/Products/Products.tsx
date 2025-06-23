@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import './Products.scss';
 import Header from '../Header/Header';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ProductModel } from '../../models/ProductModel';
 
 const Products: FC = () => {
@@ -10,7 +10,18 @@ const Products: FC = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const [category, setCategory] = useState<string>('all');
   const [sortOrder, setSortOrder] = useState<string>('default');
+  const location = useLocation(); // ← חדש
   const productsNavigate = useNavigate();
+
+  // קריאת פרמטרים מה-URL
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    const sortParam = params.get('sort');
+
+    if (categoryParam) setCategory(categoryParam);
+    if (sortParam) setSortOrder(sortParam);
+  }, [location.search]);
 
   useEffect(() => {
     fetch('http://localhost:3001/products')
@@ -18,7 +29,6 @@ const Products: FC = () => {
       .then(data => {
         setProducts(data);
         setFilteredProducts(data);
-
         const uniqueCategories = Array.from(new Set(data.map((p: ProductModel) => p.category))) as string[];
         setCategories(uniqueCategories);
       });
@@ -36,18 +46,14 @@ const Products: FC = () => {
     } else if (sortOrder === 'desc') {
       updated.sort((a, b) => b.price - a.price);
     } else if (sortOrder === 'bestseller') {
-    updated.sort((a, b) => b.buyCount - a.buyCount);
-  }
-
+      updated.sort((a, b) => b.buyCount - a.buyCount);
+    }
 
     setFilteredProducts(updated);
   }, [category, sortOrder, products]);
 
-  // const handleClick = (id: string) => {
-  //   productsNavigate(`/Products/${id}`);
-  // };
-
-  return <div className="Products">
+  return (
+    <div className="Products">
       <Header />
       <div className="products-header">
         <div className="filters">
@@ -73,7 +79,10 @@ const Products: FC = () => {
           <div
             key={product.id}
             className="product-card"
-            onClick={() => productsNavigate(`/Products/${product.id}`)}
+            onClick={() => {
+              const query = `?category=${category}&sort=${sortOrder}`;
+              productsNavigate(`/Products/${product.id}${query}`);
+            }}
           >
             <img src={product.image} alt={product.title} />
             <h3>{product.title}</h3>
@@ -82,7 +91,8 @@ const Products: FC = () => {
         ))}
       </div>
     </div>
-  
+  );
 };
+
 
 export default Products;

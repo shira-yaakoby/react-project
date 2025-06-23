@@ -48,6 +48,27 @@
       "email": "saraW@gmail.com",
       "password": "saraW!11",
       "isAdmin": false
+    },
+    {
+      "id": "e76f",
+      "name": "atara",
+      "email": "arat@g",
+      "password": "Av!12345",
+      "isAdmin": false
+    },
+    {
+      "id": "b814",
+      "name": "alon",
+      "email": "alonA@gmail.com",
+      "password": "Alon!123",
+      "isAdmin": false
+    },
+    {
+      "id": "1086",
+      "name": "shuki louandejb",
+      "email": "shuki050@gmail.com",
+      "password": "Suki050!",
+      "isAdmin": false
     }
   ],
   "products": [

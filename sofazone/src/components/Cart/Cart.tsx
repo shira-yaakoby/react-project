@@ -14,12 +14,13 @@ const Cart: React.FC = () => {
   return (
     <div className="Cart">
       <Header />
-      <h2>Your Cart</h2>
+      <br />
+      <h2>Shopping Cart</h2>
 
       {items.length === 0 ? (
-        <p>The cart is empty</p>
+        <p className='cart-summary'>Too bad, your cart is empty :(</p>
       ) : (
-        <><div className='cart-flex'>
+        <div className='cart-flex'>
           <ul className="cart-list">
             {items.map(item => (
               <li key={item.id} className="cart-item">
@@ -49,9 +50,9 @@ const Cart: React.FC = () => {
             </button>
           </div>
         </div>
-        </>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 
