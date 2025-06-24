@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
 import { UserModel } from '../../models/UserModel';
 import Header from '../Header/Header';
+import { useDispatch } from 'react-redux';
+import { setMessage } from '../../store/MessageSlice';
+import { loginUser } from '../../store/UserSlice';
 
 interface ProfileProps { }
 
@@ -14,7 +17,7 @@ const Profile: FC<ProfileProps> = () => {
   const [user, setUser] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const formik = useFormik<UserModel>({
     initialValues: {
       name: '',
@@ -25,9 +28,21 @@ const Profile: FC<ProfileProps> = () => {
     validationSchema: yup.object({
       name: yup.string().required('Name is required'),
       email: yup.string().email('Invalid email').required('Email is required'),
-      password: yup.string().min(6, 'Password must be at least 6 characters'),
-      isAdmin: yup.boolean().required('Admin status is required'),
+      password: yup
+        .string()
+        .min(8)
+        .max(20)
+      // .test((value) => {
+      //   if (!value) return false;
+      //   const hasUpperCase = /[A-Z]/.test(value);
+      //   const hasLowerCase = /[a-z]/.test(value);
+      //   const hasNumber = /[0-9]/.test(value);
+      //   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+      //   return hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+      // }),
+      // isAdmin: yup.boolean().required('Admin status is required'),
     }),
+
     onSubmit: async (values) => {
       try {
         const res = await fetch(`http://localhost:3001/users/${user.id}`, {
@@ -38,16 +53,19 @@ const Profile: FC<ProfileProps> = () => {
             name: values.name,
             email: values.email,
             password: values.password || user.password,
-            isAdmin: values.isAdmin,
           }),
         });
-
+        dispatch(loginUser({ ...user, name: values.name, email: values.email, password: values.password || user.password }));
+        localStorage.setItem('loggedUser', JSON.stringify({ ...user, name: values.name, email: values.email, password: values.password || user.password }));
         if (res.ok) {
+          dispatch(setMessage({ type: 'success', text: 'Profile updated successfully.' }));
           setUpdateMessage('Profile updated successfully!');
         } else {
+          dispatch(setMessage({ type: 'error', text: 'Failed to update profile.' }));
           setUpdateMessage('Failed to update profile.');
         }
       } catch (err) {
+        dispatch(setMessage({ type: 'error', text: 'Server error. Try again later.' }));
         console.error(err);
         setUpdateMessage('Server error. Try again later.');
       }
@@ -63,7 +81,7 @@ const Profile: FC<ProfileProps> = () => {
     }
 
     setUser(localUser);
-setIsAdmin(Boolean(localUser.isAdmin));
+    setIsAdmin(Boolean(localUser.isAdmin));
 
     const fetchUserData = async () => {
       try {
@@ -87,7 +105,6 @@ setIsAdmin(Boolean(localUser.isAdmin));
 
   return (
     <div className="Profile">
-      <Header />
       <div className="enter">
         <div className="enter-box">
           <h2>Edit Profile</h2>
@@ -146,29 +163,11 @@ setIsAdmin(Boolean(localUser.isAdmin));
               <small className="text-danger">{formik.errors.password}</small>
             )}
 
-            {/* Toggle isAdmin */}
-            <label htmlFor="isAdmin">Admin Status</label>
-            <label className="toggle-switch">
-              <input
-                type="checkbox"
-                id="isAdmin"
-                name="isAdmin"
-                checked={formik.values.isAdmin}
-                onChange={() => formik.setFieldValue('isAdmin', !formik.values.isAdmin)}
-                disabled={!isAdmin}
-              />
-              <span className="slider round" />
-            </label>
-            {!isAdmin && (
-              <small className="readonly-note">Only admins can change admin status</small>
-            )}
-
-
             {/* Submit */}
-            <button type="submit" className="submit-btn">Save Changes</button>
+            <button type="submit" className="submit-btn" onClick={() => { }}>Save Changes</button>
 
             {/* Message */}
-            {updateMessage && (
+            {/* {updateMessage && (
               <div
                 style={{
                   color: updateMessage.includes('success') ? 'green' : 'darkred',
@@ -178,7 +177,7 @@ setIsAdmin(Boolean(localUser.isAdmin));
               >
                 {updateMessage}
               </div>
-            )}
+            )} */}
           </form>
         </div>
       </div>

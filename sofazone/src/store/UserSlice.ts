@@ -1,14 +1,10 @@
 
 // src/store/UserSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserModel } from '../models/UserModel';
 
 interface UserState {
-  user: null | {
-    id: number;
-    name: string;
-    email: string;
-    isAdmin: boolean;
-  };
+  user: null |UserModel
 }
 
 const initialState: UserState = {

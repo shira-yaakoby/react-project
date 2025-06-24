@@ -11,7 +11,6 @@
   .cart-flex {
     padding: 2rem;
     font-family: 'poppins-400', sans-serif;
-    background-color: #fdf9f5;
     min-height: 100vh;
     display: flex;
     justify-content: space-between;
@@ -118,5 +117,9 @@
     font-size: 1.1rem;
     color: #a08370;
     margin-top: 2rem;
+  }
+
+  .delete-btn {
+    padding: 0rem;
   }
 }

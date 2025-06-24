@@ -4,14 +4,19 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { LoginModel } from "../../models/LoginModel";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../store/UserSlice';
+import { setMessage } from '../../store/MessageSlice';
+
 
 const Login: FC = () => {
 
   const [loginMessage, setLoginMessage] = useState<string | null>(null);
+  const dispatch = useDispatch();
 
-  const loginUser = async (value: LoginModel) => {
+  const handleLogin = async (value: LoginModel) => {
     try {
-      
+
       const response = await fetch('http://localhost:3001/users');
       const users = await response.json();
 
@@ -21,23 +26,27 @@ const Login: FC = () => {
 
       if (user) {
         console.log('משתמש קיים:', user);
+        dispatch(loginUser(user));
+        dispatch(setMessage({ type: 'success', text: 'you logged in successfully' }));
         localStorage.setItem('loggedUser', JSON.stringify(user));
-        signupRoute('/homePage');
+        setTimeout(() => {
+          signupRoute('/Header/HomePage')
+        }, 2000);
 
       }
       else {
         setLoginMessage('The user does not exist. Check your email and password or register.')
-        // window.location.href = '/signup';
       }
     } catch (err) {
+      dispatch(setMessage({ type: 'error', text: 'We were unable to connect you.' }));
       console.error('שגיאה בכניסה:', err);
-      alert('הייתה שגיאה בשרת, נסי שוב מאוחר יותר.');
+      // alert('הייתה שגיאה בשרת, נסי שוב מאוחר יותר.');
     }
   };
 
   const myForm = useFormik({
     initialValues: new LoginModel(),
-    onSubmit: loginUser,
+    onSubmit: handleLogin,
     validationSchema: yup.object().shape({
       email: yup.string().email().required(),
       password: yup.string().min(8).max(20).required().test((value) => {
@@ -68,13 +77,13 @@ const Login: FC = () => {
       <form onSubmit={myForm.handleSubmit} className="login">
         <label htmlFor="email">Email</label>
         <input id="email" name="email"
-          onChange={(m) => { myForm.handleChange(m); if (loginMessage) setLoginMessage(null); }} 
+          onChange={(m) => { myForm.handleChange(m); if (loginMessage) setLoginMessage(null); }}
           type="email" placeholder="your@email.com" required />
         {myForm.errors.email ? <small className='text-danger'>{myForm.errors.email}</small> : ''}
         <label htmlFor="password">Password</label>
-        <input id="password" name='password' 
-         onChange={(m) => { myForm.handleChange(m); if (loginMessage) setLoginMessage(null); }} 
-        type="password" placeholder="••••••••" required />
+        <input id="password" name='password'
+          onChange={(m) => { myForm.handleChange(m); if (loginMessage) setLoginMessage(null); }}
+          type="password" placeholder="••••••••" required />
         {myForm.errors.password ? <small className='text-danger'>{myForm.errors.password}</small> : ''}
 
         {/* <div className="checkbox-container">

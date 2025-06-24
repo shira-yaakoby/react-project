@@ -3,6 +3,8 @@ import './Header.scss';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../store/UserSlice';
 
 
 interface HeaderProps { }
@@ -11,6 +13,7 @@ const Header: FC<HeaderProps> = () => {
   const rawUser = localStorage.getItem('loggedUser');
   const loggedUser = rawUser ? JSON.parse(rawUser) : null;
   const headerNavigate = useNavigate();
+  const dispatch = useDispatch();
 
   return <div className="Header">
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -21,24 +24,36 @@ const Header: FC<HeaderProps> = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item active">
-            <label className="nav-link" onClick={() => { headerNavigate('/HomePage') }}>HomePage <span className="sr-only"></span></label>
+            <label className="nav-link" onClick={() => { headerNavigate('HomePage') }}>HomePage <span className="sr-only"></span></label>
           </li>
           <li className="nav-item">
-            <label className="nav-link" onClick={() => { headerNavigate('/Products') }}>Products</label>
+            <label className="nav-link" onClick={() => { headerNavigate('Products') }}>Products</label>
           </li>
           <li className="nav-item">
-            <label className="nav-link" onClick={() => { headerNavigate('/Profile') }}>Profile</label>
+            <label className="nav-link" onClick={() => { headerNavigate('Profile') }}>Profile</label>
           </li>
           <li className="nav-item">
-            <label className="nav-link" onClick={() => { headerNavigate('/Cart') }}>Cart</label>
+            <label className="nav-link" onClick={() => { headerNavigate('Cart') }}>Cart</label>
           </li>
           <li className="nav-item">
-            <label className="nav-link" onClick={() => { headerNavigate('/About') }}>About</label>
+            <label className="nav-link" onClick={() => { headerNavigate('About') }}>About</label>
           </li>
           <li className="nav-item">
+
             <Tooltip title="Log out" arrow>
-              <Button className="nav-link user-info" onClick={() => headerNavigate('/Login')}>
-                {loggedUser.name}
+              <Button
+                className="nav-link user-info"
+                onClick={() => {
+                  localStorage.removeItem('loggedUser');
+                  localStorage.removeItem('cart');
+                  dispatch({ type: 'cart/clearCart' });
+                  dispatch(logoutUser());
+                  headerNavigate('/Login');
+                }}
+              >
+
+                {loggedUser?.name}
+
                 <svg
                   className="user-icon"
                   fill="currentColor"

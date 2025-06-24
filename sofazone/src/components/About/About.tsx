@@ -6,7 +6,6 @@ interface AboutProps { }
 
 const About: FC<AboutProps> = () => (
   <div className="About">
-    <Header />
     <div className="about-container">
       <div className="about-image" />
       <div className="about-text">

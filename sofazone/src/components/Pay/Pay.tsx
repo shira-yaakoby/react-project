@@ -33,7 +33,6 @@ const Pay: FC<PayProps> = () => {
 
   return (
     <div className="Pay">
-      <Header />
       <div className="Pay enter">
         <div className="enter-box">
           <h2>Payment & Order</h2>

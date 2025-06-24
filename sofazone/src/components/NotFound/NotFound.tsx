@@ -8,7 +8,6 @@ const NotFound: React.FC = () => {
 
     return (
         <div className="NotFound">
-            <Header />
             <div className="notfound-content">
                 <h1>404</h1>
                 <p>Looks like you've taken a wrong turn...</p>
@@ -18,7 +17,7 @@ const NotFound: React.FC = () => {
                     alt="Couch not found"
                 />
                 <br />
-                <button onClick={() => notFoundNavigate('/HomePage')}>Back to Home</button>
+                <button onClick={() => notFoundNavigate('/Header/HomePage')}>Back to Home</button>
             </div>
         </div>
     );

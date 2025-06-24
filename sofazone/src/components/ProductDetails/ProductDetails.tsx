@@ -6,6 +6,8 @@ import { ProductModel } from '../../models/ProductModel';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../store/CartSlice';
 import { log } from 'console';
+import store from '../../store/store';
+import { setMessage } from '../../store/MessageSlice';
 
 interface Review {
   id: string;
@@ -29,7 +31,6 @@ const ProductDetails: FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [showReviews, setShowReviews] = useState(false);
   const [amount, setAmount] = useState(1);
-  const [addedMessage, setAddedMessage] = useState('add to cart');
 
 
   useEffect(() => {
@@ -54,28 +55,34 @@ const ProductDetails: FC = () => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    if (!product) return;
-    dispatch(addToCart({ product: { ...product, quantity: amount }, amount }));
+    if (!product) {
+      dispatch(setMessage({ type: 'error', text: 'We were unable to add the product to your cart.' }));
+      return;
+    }
 
-    setAddedMessage('Product added to cart!');
-    setTimeout(() => { setAddedMessage('add to cart') }, 1000);
+    dispatch(addToCart({ product, amount }));
+    console.log(store.getState())
+    localStorage.setItem('cart', JSON.stringify(store.getState().cart.items));
+    dispatch(setMessage({ type: 'success', text: 'The product was successfully added to the cart.' }));
   };
+
 
   const handleDeleteReview = (reviewId: string) => {
     fetch(`http://localhost:3001/reviews/${reviewId}`, {
       method: 'DELETE',
+
     })
       .then(() => {
+        dispatch(setMessage({ type: 'success', text: 'Your review has been successfully deleted.' }));
         setReviews(prev => prev.filter(r => r.id !== reviewId));
       })
       .catch(error => {
+        dispatch(setMessage({ type: 'error', text: 'We were unable to delete your review.' }));
         console.error('Error deleting review:', error);
-        alert('Failed to delete review');
       });
   }
   return (
     <div className="ProductDetails">
-      <Header />
       {product ? (
         <div className="top-section">
           <div className="left-side">
@@ -93,7 +100,7 @@ const ProductDetails: FC = () => {
                 <label>{amount}</label>
                 <button onClick={() => setAmount(prev => prev + 1)}>+</button>
               </div>
-              <button className="btn" onClick={handleAddToCart}>{addedMessage}</button>
+              <button className="btn" onClick={handleAddToCart}>add to cart</button>
             </div>
 
             <div className="reviews-section">
@@ -149,7 +156,7 @@ const ProductDetails: FC = () => {
               className="return-btn"
               onClick={() => {
                 const query = location.search;
-                productDetailsNavigate(`/Products${query}`);
+                productDetailsNavigate(`/Header/Products${query}`);
               }}
             >
               ← Return

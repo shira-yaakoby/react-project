@@ -54,7 +54,6 @@ const Products: FC = () => {
 
   return (
     <div className="Products">
-      <Header />
       <div className="products-header">
         <div className="filters">
           <select onChange={e => setCategory(e.target.value)} value={category}>
@@ -81,7 +80,7 @@ const Products: FC = () => {
             className="product-card"
             onClick={() => {
               const query = `?category=${category}&sort=${sortOrder}`;
-              productsNavigate(`/Products/${product.id}${query}`);
+              productsNavigate(`/Header/Products/${product.id}${query}`);
             }}
           >
             <img src={product.image} alt={product.title} />

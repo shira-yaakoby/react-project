@@ -140,25 +140,7 @@
         }
     }
 
-    .delete-btn {
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        color: #c69b6d;
-        padding-left: 3rem;
-        padding-bottom: 1rem;
-        border-radius: 0.3rem;
-        transition: color 0.3s ease, transform 0.2s ease;
-
-        &:hover {
-            color: #b18f5d;
-            transform: scale(1.2);
-        }
-
-        &:active {
-            transform: scale(0.9);
-        }
-    }
+  
 
 
     .reviews-section {
@@ -210,3 +192,22 @@
 
     }
 }
+  .delete-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: #c69b6d;
+        padding-left: 3rem;
+        padding-bottom: 1rem;
+        border-radius: 0.3rem;
+        transition: color 0.3s ease, transform 0.2s ease;
+
+        &:hover {
+            color: #b18f5d;
+            transform: scale(1.2);
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+    }

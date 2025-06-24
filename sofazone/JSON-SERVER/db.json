@@ -9,7 +9,7 @@
     },
     {
       "id": "2",
-      "name": "Yoav Levi",
+      "name": "Yoav Wertzberger",
       "email": "yoav@gmail.com",
       "password": "Yoav5678!",
       "isAdmin": false
@@ -36,15 +36,8 @@
       "isAdmin": false
     },
     {
-      "id": "1345",
-      "name": "shir",
-      "email": "shira0583267831@gmail.com",
-      "password": "123123123Aa@",
-      "isAdmin": false
-    },
-    {
       "id": "066b",
-      "name": "atara",
+      "name": "atara wer",
       "email": "atara8478@gmail.com",
       "password": "Atara355@",
       "isAdmin": false

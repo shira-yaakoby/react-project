@@ -5,10 +5,13 @@ import * as yup from 'yup';
 import { UserModel } from '../../models/UserModel';
 import { useNavigate, useNavigation } from 'react-router-dom';
 import axios from 'axios';
+import { setMessage } from '../../store/MessageSlice';
+import { useDispatch } from 'react-redux';
 
 interface SignupProps { }
 
 const Signup: FC<SignupProps> = () => {
+  const dispatch = useDispatch();
   const loginNavigation = useNavigate();
   const [signupMessage, setSignupMessage] = useState<string | null>(null);
 
@@ -17,14 +20,16 @@ const Signup: FC<SignupProps> = () => {
       const check = await axios.get(`http://localhost:3001/users?email=${values.email}`);
 
       if (check.data.length > 0) {
-        alert('אימייל זה כבר רשום במערכת');
+        dispatch(setMessage({ type: 'error', text: 'This email is already registered in the system.' }));
         return;
       }
 
       const response = await axios.post('http://localhost:3001/users', values);
+      dispatch(setMessage({ type: 'success', text: 'You have successfully registered.' }));
       setSignupMessage('User added successfully. Please log in.');
       console.log('המשתמש נוסף:', response.data);
     } catch (error) {
+      dispatch(setMessage({ type: 'error', text: 'We were unable to register you.' }));
       console.error('שגיאה בהרשמה:', error);
       alert('שגיאה בהרשמה. נסי שוב.');
     }
