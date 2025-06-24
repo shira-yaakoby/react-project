@@ -22,8 +22,8 @@ interface User {
 
 const ProductDetails: FC = () => {
   const { id } = useParams();
-  const location = useLocation(); // ← חדש
-  const productDetailsNavigate = useNavigate(); // ← חדש
+  const location = useLocation();
+  const productDetailsNavigate = useNavigate();
   const [product, setProduct] = useState<ProductModel | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [users, setUsers] = useState<User[]>([]);
@@ -55,7 +55,8 @@ const ProductDetails: FC = () => {
 
   const handleAddToCart = () => {
     if (!product) return;
-    dispatch(addToCart({ product, amount }));
+    dispatch(addToCart({ product: { ...product, quantity: amount }, amount }));
+
     setAddedMessage('Product added to cart!');
     setTimeout(() => { setAddedMessage('add to cart') }, 1000);
   };
@@ -66,8 +67,6 @@ const ProductDetails: FC = () => {
     })
       .then(() => {
         setReviews(prev => prev.filter(r => r.id !== reviewId));
-
-        // alert('Review deleted successfully');
       })
       .catch(error => {
         console.error('Error deleting review:', error);
@@ -77,17 +76,6 @@ const ProductDetails: FC = () => {
   return (
     <div className="ProductDetails">
       <Header />
-      <br />
-      <button
-        className="btn"
-        onClick={() => {
-          const query = location.search;
-          productDetailsNavigate(`/Products${query}`);
-        }}
-      >
-        ← return
-      </button>
-
       {product ? (
         <div className="top-section">
           <div className="left-side">
@@ -157,6 +145,15 @@ const ProductDetails: FC = () => {
           </div>
 
           <div className="right-side">
+            <button
+              className="return-btn"
+              onClick={() => {
+                const query = location.search;
+                productDetailsNavigate(`/Products${query}`);
+              }}
+            >
+              ← Return
+            </button>
             <img src={product.image} alt={product.title} />
           </div>
         </div>

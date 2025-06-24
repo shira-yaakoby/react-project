@@ -35,3 +35,13 @@
     animation: floatingBackground 25s ease-in-out infinite alternate;
   }
   
+  .user-info {
+  display: flex;
+  align-items: center;
+  gap: 6px; 
+}
+
+.user-icon {
+  width: 20px;
+  height: 20px;
+}

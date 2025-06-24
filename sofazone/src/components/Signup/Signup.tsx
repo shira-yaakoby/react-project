@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import '../../scss/form-style.scss';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { SignupModel } from '../../models/SignupModel';
+import { UserModel } from '../../models/UserModel';
 import { useNavigate, useNavigation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -12,7 +12,7 @@ const Signup: FC<SignupProps> = () => {
   const loginNavigation = useNavigate();
   const [signupMessage, setSignupMessage] = useState<string | null>(null);
 
-  const signupUser = async (values: SignupModel) => {
+  const signupUser = async (values: UserModel) => {
     try {
       const check = await axios.get(`http://localhost:3001/users?email=${values.email}`);
 
@@ -32,7 +32,7 @@ const Signup: FC<SignupProps> = () => {
 
 
   const myForm = useFormik({
-    initialValues: new SignupModel,
+    initialValues: new UserModel,
     onSubmit: signupUser,
     validationSchema: yup.object().shape({
       name: yup.string().required('Name is required'),

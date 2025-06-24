@@ -11,7 +11,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
-            margin-top: 120px;
+            margin-top: 90px;
 
             .added-message {
                 margin-top: 1rem;
@@ -32,7 +32,7 @@
             flex: 1;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            flex-wrap: wrap;
             margin-top: 70px;
             margin-right: 100px;
 
@@ -41,6 +41,21 @@
                 height: 500px;
                 object-fit: cover;
                 border-radius: 2rem;
+            }
+
+            .return-btn {
+                border: none;
+                font-weight: 500;
+                cursor: pointer;
+                font-size: 1rem;
+                display: flex;
+                margin-bottom: 0.5rem;
+                justify-content: flex-start;
+
+                &:hover {
+                    background-color: #e9e1d8;
+                    transform: translateY(-2px);
+                }
             }
         }
     }
@@ -129,7 +144,7 @@
         background: transparent;
         border: none;
         cursor: pointer;
-        color: #c69b6d; 
+        color: #c69b6d;
         padding-left: 3rem;
         padding-bottom: 1rem;
         border-radius: 0.3rem;
@@ -144,6 +159,7 @@
             transform: scale(0.9);
         }
     }
+
 
     .reviews-section {
         font-family: "poppins-400", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;

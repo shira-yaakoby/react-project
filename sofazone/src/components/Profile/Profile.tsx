@@ -4,7 +4,7 @@ import '../../scss/form-style.scss';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
-import { ProfileModel } from '../../models/ProfileModel';
+import { UserModel } from '../../models/UserModel';
 import Header from '../Header/Header';
 
 interface ProfileProps { }
@@ -15,7 +15,7 @@ const Profile: FC<ProfileProps> = () => {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const formik = useFormik<ProfileModel>({
+  const formik = useFormik<UserModel>({
     initialValues: {
       name: '',
       email: '',

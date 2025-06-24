@@ -30,7 +30,14 @@
     },
     {
       "id": "40d7",
-      "name": "שירה יעקבי",
+      "name": "Shira Yaakoby",
+      "email": "shira0583267831@gmail.com",
+      "password": "123123123Aa@",
+      "isAdmin": false
+    },
+    {
+      "id": "1345",
+      "name": "shir",
       "email": "shira0583267831@gmail.com",
       "password": "123123123Aa@",
       "isAdmin": false
@@ -47,27 +54,6 @@
       "name": "sara",
       "email": "saraW@gmail.com",
       "password": "saraW!11",
-      "isAdmin": false
-    },
-    {
-      "id": "e76f",
-      "name": "atara",
-      "email": "arat@g",
-      "password": "Av!12345",
-      "isAdmin": false
-    },
-    {
-      "id": "b814",
-      "name": "alon",
-      "email": "alonA@gmail.com",
-      "password": "Alon!123",
-      "isAdmin": false
-    },
-    {
-      "id": "1086",
-      "name": "shuki louandejb",
-      "email": "shuki050@gmail.com",
-      "password": "Suki050!",
       "isAdmin": false
     }
   ],
@@ -97,7 +83,7 @@
       "image": "https://arikdesign.co.il/wp-content/uploads/2025/03/%D7%A1%D7%A4%D7%95%D7%AA-%D7%9C%D7%A1%D7%9C%D7%95%D7%9F-%E2%80%93-%D7%A0%D7%95%D7%97%D7%95%D7%AA-%D7%90%D7%99%D7%9B%D7%95%D7%AA-%D7%95%D7%A1%D7%98%D7%99%D7%99%D7%9C-%D7%91%D7%94%D7%AA%D7%90%D7%9E%D7%94-%D7%90%D7%99%D7%A9%D7%99%D7%AA-%D7%90%D7%A8%D7%99%D7%A7-%D7%93%D7%99%D7%96%D7%99%D7%99%D7%9F-%D7%97%D7%A0%D7%95%D7%AA-%D7%A8%D7%94%D7%99%D7%98%D7%99%D7%9D-%D7%A8%D7%90%D7%A9%D7%9C%D7%A6.webp",
       "category": "Corner Sofas",
       "price": 4290,
-      "buyCount": 2
+      "buyCount": 9
     },
     {
       "id": "4",
@@ -106,7 +92,7 @@
       "image": "https://ubject.co.il/wp-content/uploads/elegant-2-seater-sofa-gray-color-with-black-metal-legs-nordic-living-room-scandinavian-designs.jpg",
       "category": "Corner Sofas",
       "price": 4590,
-      "buyCount": 9
+      "buyCount": 2
     },
     {
       "id": "5",
@@ -115,7 +101,7 @@
       "image": "https://www.turkizhouse.co.il/wp-content/uploads/2025/06/X0A8691.jpg",
       "category": "Recliners",
       "price": 1490,
-      "buyCount": 0
+      "buyCount": 3
     },
     {
       "id": "6",
@@ -256,7 +242,7 @@
       "id": "21",
       "title": "Paris Linen Sofa",
       "description": "Light beige sofa with soft linen fabric and deep seating",
-      "image": "https://www.dolce-divani.co.il/wp-content/uploads/2022/07/1-1_800x531.jpg",
+      "image": "https://www.dolce-divani.co.il/wp-content/uploads/2022/07/1-2_800x531.jpg",
       "category": "Sofas",
       "price": 2990,
       "buyCount": 3
@@ -513,7 +499,7 @@
     },
     {
       "id": "12",
-      "userId": "066b",
+      "userId": "066",
       "productId": 10,
       "comment": "Really firm seating – depends on preference.",
       "rating": 3
@@ -531,20 +517,6 @@
       "productId": 12,
       "comment": "Looks better in pictures than in real life.",
       "rating": 2
-    },
-    {
-      "id": "15",
-      "userId": 2,
-      "productId": 11,
-      "comment": "Looks better in pictures than in real life.",
-      "rating": 2
-    },
-    {
-      "id": "16",
-      "userId": 3,
-      "productId": 11,
-      "comment": "I love this sofa.",
-      "rating": 5
     }
   ]
 }
