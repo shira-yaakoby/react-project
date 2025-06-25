@@ -5,7 +5,7 @@ interface AddProductProps {}
 
 const AddProduct: FC<AddProductProps> = () => (
   <div className="AddProduct">
-    AddProduct Component
+    {/* פה תהיה לוגיקה של הוספת מוצר- למנהל בלבד! */}
   </div>
 );
 

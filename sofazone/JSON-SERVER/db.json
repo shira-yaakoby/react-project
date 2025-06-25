@@ -37,7 +37,7 @@
     },
     {
       "id": "066b",
-      "name": "atara wer",
+      "name": "atara wertzberger",
       "email": "atara8478@gmail.com",
       "password": "Atara355@",
       "isAdmin": false
@@ -47,6 +47,19 @@
       "name": "sara",
       "email": "saraW@gmail.com",
       "password": "saraW!11",
+      "isAdmin": false
+    },
+    {
+      "id": "8fbf",
+      "name": "atara",
+      "email": "sara1234@gmail.com",
+      "password": "Sara1234!"
+    },
+    {
+      "id": "fa25",
+      "name": "atara sos",
+      "email": "sos@gmail.com",
+      "password": "sosS1234!",
       "isAdmin": false
     }
   ],
