@@ -1,141 +1,226 @@
-import React, { FC, useEffect, useMemo, useState, useRef } from 'react';
+import React, { FC, useEffect, useState, useMemo } from 'react';
+import './Products.scss';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ProductModel } from '../../models/ProductModel';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import { number } from 'yup';
+import { setMessage } from '../../store/MessageSlice';
+import { useDispatch } from 'react-redux';
 
-const PAGE_SIZE = 20;
 
 const Products: FC = () => {
+  const [products, setProducts] = useState<ProductModel[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
   const [category, setCategory] = useState<string>('all');
   const [sortOrder, setSortOrder] = useState<string>('default');
-  const [searchName, setSearchName] = useState<string>('');
-  const [minPrice, setMinPrice] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(100000);
+  const [price, setMaxPrice] = useState<number>(0);
+  const [page, setPage] = useState<number>(0);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const percent = (price / 5000) * 100;
+  const user = useSelector((state: RootState) => state.user.user);
+  const isAdmin = user?.isAdmin === true;
 
-  const [page, setPage] = useState<number>(1);
-  const [products, setProducts] = useState<ProductModel[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const PRODUCTS_PER_PAGE = 20;
 
-  const observer = useRef<IntersectionObserver | null>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // בונה URL עם כל הפרמטרים כולל עמוד וסינון
-  const buildUrl = (pageNum: number) => {
+
+  // קריאת פרמטרים מה-URL
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    const sortParam = params.get('sort');
+    const priceParam = params.get('price_lte');
+
+    setCategory(categoryParam || 'all');
+    setSortOrder(sortParam || 'default');
+    setMaxPrice(priceParam ? Number(priceParam) : 0);
+  }, [location.search]);
+
+  // טעינת קטגוריות (פעם אחת)
+  useEffect(() => {
+    fetch('http://localhost:3001/products')
+      .then(res => res.json())
+      .then(data => {
+        const uniqueCategories = Array.from(new Set(data.map((p: ProductModel) => p.category))) as string[];
+        setCategories(uniqueCategories);
+      });
+  }, []);
+
+  // טעינת מוצרים מהשרת לפי עמוד וסינון
+  const fetchProducts = async (reset = false) => {
+    setIsLoading(true);
     const params = new URLSearchParams();
 
     if (category !== 'all') params.append('category', category);
-    if (searchName.trim()) params.append('q', searchName.trim());
-    params.append('price_gte', minPrice.toString());
-    params.append('price_lte', maxPrice.toString());
+    if (price > 0) params.append('price_lte', price.toString());
 
-    if (sortOrder === 'asc') {
-      params.append('_sort', 'price');
-      params.append('_order', 'asc');
-    } else if (sortOrder === 'desc') {
-      params.append('_sort', 'price');
-      params.append('_order', 'desc');
-    } else if (sortOrder === 'bestseller') {
-      params.append('_sort', 'buyCount');
-      params.append('_order', 'desc');
+    params.append('_limit', PRODUCTS_PER_PAGE.toString());
+    params.append('_start', (reset ? 0 : page * PRODUCTS_PER_PAGE).toString());
+
+    const url = `http://localhost:3001/products?${params.toString()}`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (reset) {
+      setProducts(data);
+      setPage(1);
+    } else {
+      setProducts(prev => [...prev, ...data]);
+      setPage(prev => prev + 1);
     }
 
-    params.append('_limit', PAGE_SIZE.toString());
-    params.append('_page', pageNum.toString());
-
-    return `http://localhost:3001/products?${params.toString()}`;
+    setHasMore(data.length === PRODUCTS_PER_PAGE);
+    setIsLoading(false);
   };
 
-  // טעינת מוצרים
-  const loadProducts = async (pageNum: number, reset = false) => {
-    if (loading) return;
-    setLoading(true);
-    try {
-      const res = await fetch(buildUrl(pageNum));
-      const data: ProductModel[] = await res.json();
-
-      setProducts(prev => (reset ? data : [...prev, ...data]));
-      setHasMore(data.length === PAGE_SIZE);
-    } catch {
-      // הודעת שגיאה
-    }
-    setLoading(false);
-  };
-
-  // אתחול טעינת מוצרים עם כל שינוי בסינונים - מאפס את המוצרים והעמוד
+  // שליפה מחדש כשמשנים פילטרים
   useEffect(() => {
-    setPage(1);
-    loadProducts(1, true);
-  }, [category, sortOrder, searchName, minPrice, maxPrice]);
+    setPage(0);
+    setHasMore(true);
+    fetchProducts(true);
+  }, [category, price]);
 
-  // טעינת מוצרים בעמוד חדש בגלילה
+  // עדכון ה-URL בהתאם לפילטרים
   useEffect(() => {
-    if (page === 1) return; // כבר טעינו בעמוד הראשון אחרי סינון
-    loadProducts(page);
-  }, [page]);
+    const params = new URLSearchParams();
 
-  // הגדרת observer לגלילה אינסופית
-  const lastProductRef = (node: HTMLDivElement | null) => {
-    if (loading) return;
-    if (!hasMore) return;
+    if (category !== 'all') params.set('category', category);
+    if (sortOrder !== 'default') params.set('sort', sortOrder);
+    if (price > 0) params.set('price_lte', price.toString());
 
-    if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        setPage(prev => prev + 1);
-      }
+    navigate({
+      pathname: '/Header/Products',
+      search: params.toString() ? `?${params.toString()}` : '',
+    }, { replace: true });
+  }, [category, sortOrder, price, navigate]);
+
+  // מיון בצד לקוח
+  const sortedProducts = useMemo(() => {
+    let updated = [...products];
+    if (sortOrder === 'asc') updated.sort((a, b) => a.price - b.price);
+    else if (sortOrder === 'desc') updated.sort((a, b) => b.price - a.price);
+    else if (sortOrder === 'bestseller') updated.sort((a, b) => b.buyCount - a.buyCount);
+    return updated;
+  }, [products, sortOrder]);
+  //  <Fab size="small" /*color="secondary" */ aria-label="add">
+  //             <AddIcon />
+  //           </Fab>
+
+ const deleteProduct = (id: number) => {
+  fetch(`http://localhost:3001/products/${id}`, {
+    method: 'DELETE',
+  })
+    .then(response => {
+      if (!response.ok) throw new Error('Failed to delete product');
+      dispatch(setMessage({ type: 'success', text: 'The product was successfully deleted.' }));
+      setProducts(prev => prev.filter(product => product.id !== id));
+    })
+    .catch(error => {
+      dispatch(setMessage({ type: 'error', text: 'We were unable to delete this product.' }));
+      console.error('Error deleting product:', error);
     });
+};
 
-    if (node) observer.current.observe(node);
-  };
-
-  // רינדור מוצרים, מציבים ref על האחרון לגלילה אינסופית
-  const productList = useMemo(() => {
-    return products.map((product, index) => {
-      if (index === products.length - 1) {
-        return (
-          <div
-            key={product.id}
-            ref={lastProductRef}
-            className="product-card"
-            onClick={() => {
-              /* ניווט */
-            }}
-          >
-            {/* תצוגת מוצר */}
-          </div>
-        );
-      }
-      return (
-        <div
-          key={product.id}
-          className="product-card"
-          onClick={() => {
-            /* ניווט */
-          }}
-        >
-          {/* תצוגת מוצר */}
-        </div>
-      );
-    });
-  }, [products]);
 
   return (
     <div className="Products">
-      {/* סינונים */}
-      <input
-        type="text"
-        placeholder="חיפוש לפי שם"
-        value={searchName}
-        onChange={e => setSearchName(e.target.value)}
-      />
-      <select value={category} onChange={e => setCategory(e.target.value)}>
-        <option value="all">כל הקטגוריות</option>
-        {/* קטגוריות */}
-      </select>
-      {/* שאר הסינונים */}
+      <div className="products-header">
+        <div className="filters">
+          <select onChange={e => setCategory(e.target.value)} value={category}>
+            <option value="all">All</option>
+            {categories.map(cat => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
 
-      <div className="products-grid">{productList}</div>
+          <select onChange={e => setSortOrder(e.target.value)} value={sortOrder}>
+            <option value="default">Random</option>
+            <option value="asc">Low To High</option>
+            <option value="desc">High To Low</option>
+            <option value="bestseller">Popular</option>
+          </select>
 
-      {loading && <p>טוען...</p>}
-      {!hasMore && <p>אין עוד מוצרים לטעון</p>}
+          <div className="range">
+            <span>0</span>
+            <input
+              type="range"
+              min="0"
+              max="5000"
+              step="50"
+              value={price}
+              onChange={e => setMaxPrice(Number(e.target.value))}
+              style={{ '--percent': `${percent}%` } as React.CSSProperties}
+            />
+            <span>max {price}$</span>
+          </div>
+        </div>
+
+        {isAdmin ? <button onClick={() => { }}>add product +</button> : null}
+
+      </div>
+
+      <div className="products-grid">
+        {sortedProducts.map(product => (
+          <div
+            key={product.id}
+            className="product-card">
+            <div onClick={() => {
+              const query = new URLSearchParams({
+                category,
+                sort: sortOrder,
+                price_lte: price.toString(),
+              }).toString();
+              navigate(`/Header/Products/${product.id}?${query}`);
+            }}>
+              <img src={product.image} alt={product.title} />
+              <h3>{product.title}</h3>
+              <p>{product.price} $</p>
+            </div>
+            {isAdmin ? <button className="delete-btn" onClick={() => { deleteProduct(product.id) }}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                <path d="M10 11v6" />
+                <path d="M14 11v6" />
+                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+              </svg>
+            </button> : null}
+          </div>
+        ))}
+      </div>
+
+      {hasMore && !isLoading && (
+        <div>
+          <button className='btn' onClick={() => fetchProducts(false)}>
+            הצג עוד
+          </button>
+        </div>
+      )}
     </div>
   );
 };
+
+export default Products;
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
+}
+

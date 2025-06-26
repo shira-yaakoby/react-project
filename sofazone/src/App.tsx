@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Login from './components/Login/Login';
@@ -18,7 +18,6 @@ import { RootState } from './store/store';
 import { clearMessage } from './store/MessageSlice';
 import { ToastContainer, Toast } from 'react-bootstrap';
 import { addToCart, setCartItems } from './store/CartSlice';
-import AddProduct from './components/AddProduct/AddProduct';
 import Header from './components/Header/Header';
 
 function App() {
@@ -39,7 +38,7 @@ function App() {
       dispatch(setCartItems(parsedCart));  // קריאה לפעולה החדשה
     }
   }, []);
-
+  const LazyAddProduct = React.lazy(() => import('./components/AddProduct/AddProduct'))
 
   return (
     <div className="App">
@@ -56,7 +55,7 @@ function App() {
           <Route path="Cart" element={<Cart />} />
           <Route path="Products" element={<Products />} />
           <Route path="Products/:id" element={<ProductDetails />} />
-          <Route path="AddProduct" element={<AddProduct />} />
+          <Route path="AddProduct" element={<Suspense fallback={<div>loading...</div>}><LazyAddProduct></LazyAddProduct></Suspense>} />
           <Route path="Profile" element={<Profile />} />
           <Route path="Pay" element={<Pay />} />
         </Route>
