@@ -3,11 +3,14 @@ import './ProductDetails.scss';
 import Header from '../Header/Header';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { ProductModel } from '../../models/ProductModel';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../store/CartSlice';
 import { log } from 'console';
 import store from '../../store/store';
 import { setMessage } from '../../store/MessageSlice';
+import { RootState } from '../../store/store';
+import { Rating, Stack } from '@mui/material';
+import { ReviewModel } from '../../models/ReviewModel';
 
 interface Review {
   id: string;
@@ -31,7 +34,11 @@ const ProductDetails: FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [showReviews, setShowReviews] = useState(false);
   const [amount, setAmount] = useState(1);
-
+  const [clickedAddReview, setClickedAddReview] = useState(false);
+  const [reviewText, setReviewText] = useState('');
+  const [ratingValue, setRatingValue] = useState<number>(5);
+  const user = useSelector((state: RootState) => state.user.user);
+  const isAdmin = user?.isAdmin === true;
 
   useEffect(() => {
     fetch(`http://localhost:3001/products/${id}`)
@@ -81,10 +88,80 @@ const ProductDetails: FC = () => {
         console.error('Error deleting review:', error);
       });
   }
+
+  const addReview = () => {
+    console.log('enter addReview');
+    setClickedAddReview(true);
+  }
+
+  const saveReview = (comment: string, rating: number) => {
+    if (!product) {
+      dispatch(setMessage({ type: 'error', text: 'Product not found.' }));
+      return;
+    }
+    let review = new ReviewModel(
+      user?.id?.toString() || '',
+      product.id,
+      comment,
+      rating
+    );
+    console.log('review', review);
+    //db
+    fetch('http://localhost:3001/reviews', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(review)
+    })
+      .then(res => {
+        if (!res.ok)
+          dispatch(setMessage({ type: 'error', text: 'Failed to save review.' }));
+
+        return res.json();
+      })
+      .then((savedReview: Review) => {
+        dispatch(setMessage({ type: 'success', text: 'Review saved successfully.' }));
+        setReviews(prev => [...prev, savedReview]);
+        setClickedAddReview(false); // סגירת טופס
+      })
+      .catch(() => {
+        dispatch(setMessage({ type: 'error', text: 'Failed to save review.' }));
+      });
+  }
+
   return (
     <div className="ProductDetails">
       {product ? (
         <div className="top-section">
+          {clickedAddReview && !isAdmin ?
+            <div className="add-review">
+              <span onClick={() => setClickedAddReview(false)} style={{ cursor: 'pointer' }}>X</span>
+              <h1>Add review</h1>
+
+              <p>Your review</p>
+              <textarea
+                placeholder="Write your review here..."
+                value={reviewText}
+                onChange={(e) => setReviewText(e.target.value)}
+              />
+
+              <p>Your rating</p>
+              <Stack spacing={1}>
+                <Rating
+                  name="user-rating"
+                  value={ratingValue}
+                  precision={1}
+                  onChange={(event, newValue) => {
+                    if (typeof newValue === 'number') setRatingValue(newValue);
+                  }}
+                />
+              </Stack>
+
+              <button className='btn' onClick={() => saveReview(reviewText, ratingValue)}>Save Review</button>
+            </div>
+
+            : null}
           <div className="left-side">
             <div className="info-section">
               <h2>{product.title}</h2>
@@ -104,8 +181,10 @@ const ProductDetails: FC = () => {
             </div>
 
             <div className="reviews-section">
-              <p onClick={() => setShowReviews(prev => !prev)} className="toggle-btn">
-                <strong>Reviews:</strong> {showReviews ? '▾' : '▸'}
+              <p className="toggle-btn">
+                {!isAdmin ? <button className='btn' onClick={() => { addReview() }}>add review</button> : null}
+                <strong onClick={() => setShowReviews(prev => !prev)}>Reviews: {showReviews ? '▾' : '▸'}</strong>
+
               </p>
               {showReviews && (
                 <ul className="review-list">
@@ -151,6 +230,7 @@ const ProductDetails: FC = () => {
             </div>
           </div>
 
+
           <div className="right-side">
             <button
               className="return-btn"
@@ -166,7 +246,10 @@ const ProductDetails: FC = () => {
         </div>
       ) : (
         <div>Loading...</div>
+
       )}
+
+
     </div>
   );
 };
