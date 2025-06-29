@@ -55,7 +55,11 @@ function App() {
           <Route path="Cart" element={<Cart />} />
           <Route path="Products" element={<Products />} />
           <Route path="Products/:id" element={<ProductDetails />} />
-          <Route path="AddProduct" element={<Suspense fallback={<div>loading...</div>}><LazyAddProduct></LazyAddProduct></Suspense>} />
+          <Route path="AddProduct" element={
+            <Suspense fallback={<div>loading...</div>}>
+              <LazyAddProduct onClose={() => { /* implement close logic here */ }} />
+            </Suspense>
+          } />
           <Route path="Profile" element={<Profile />} />
           <Route path="Pay" element={<Pay />} />
         </Route>

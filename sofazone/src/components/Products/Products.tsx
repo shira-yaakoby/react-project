@@ -10,11 +10,13 @@ import AddIcon from '@mui/icons-material/Add';
 import { number } from 'yup';
 import { setMessage } from '../../store/MessageSlice';
 import { useDispatch } from 'react-redux';
+import AddProduct from '../AddProduct/AddProduct';
+import { useCategories } from '../../hooks/useCategories';
 
 
 const Products: FC = () => {
   const [products, setProducts] = useState<ProductModel[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
+  // const [categories, setCategories] = useState<string[]>([]);
   const [category, setCategory] = useState<string>('all');
   const [sortOrder, setSortOrder] = useState<string>('default');
   const [price, setMaxPrice] = useState<number>(0);
@@ -24,6 +26,7 @@ const Products: FC = () => {
   const percent = (price / 5000) * 100;
   const user = useSelector((state: RootState) => state.user.user);
   const isAdmin = user?.isAdmin === true;
+  const [clickedAddProduct, setClickedAddProduct] = useState<boolean>(false);
 
   const PRODUCTS_PER_PAGE = 20;
 
@@ -44,15 +47,8 @@ const Products: FC = () => {
     setMaxPrice(priceParam ? Number(priceParam) : 0);
   }, [location.search]);
 
-  // טעינת קטגוריות (פעם אחת)
-  useEffect(() => {
-    fetch('http://localhost:3001/products')
-      .then(res => res.json())
-      .then(data => {
-        const uniqueCategories = Array.from(new Set(data.map((p: ProductModel) => p.category))) as string[];
-        setCategories(uniqueCategories);
-      });
-  }, []);
+const { categories } = useCategories();
+
 
   // טעינת מוצרים מהשרת לפי עמוד וסינון
   const fetchProducts = async (reset = false) => {
@@ -114,20 +110,20 @@ const Products: FC = () => {
   //             <AddIcon />
   //           </Fab>
 
- const deleteProduct = (id: number) => {
-  fetch(`http://localhost:3001/products/${id}`, {
-    method: 'DELETE',
-  })
-    .then(response => {
-      if (!response.ok) throw new Error('Failed to delete product');
-      dispatch(setMessage({ type: 'success', text: 'The product was successfully deleted.' }));
-      setProducts(prev => prev.filter(product => product.id !== id));
+  const deleteProduct = (id: number) => {
+    fetch(`http://localhost:3001/products/${id}`, {
+      method: 'DELETE',
     })
-    .catch(error => {
-      dispatch(setMessage({ type: 'error', text: 'We were unable to delete this product.' }));
-      console.error('Error deleting product:', error);
-    });
-};
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to delete product');
+        dispatch(setMessage({ type: 'success', text: 'The product was successfully deleted.' }));
+        setProducts(prev => prev.filter(product => product.id !== id));
+      })
+      .catch(error => {
+        dispatch(setMessage({ type: 'error', text: 'We were unable to delete this product.' }));
+        console.error('Error deleting product:', error);
+      });
+  };
 
 
   return (
@@ -165,9 +161,9 @@ const Products: FC = () => {
           </div>
         </div>
 
-        {isAdmin ? <button onClick={() => { }}>add product +</button> : null}
-
+        {isAdmin && !clickedAddProduct ? <button onClick={() => setClickedAddProduct(true)}>Add product +</button> : null}
       </div>
+      {clickedAddProduct && (<AddProduct onClose={() => setClickedAddProduct(false)} /> )}
 
       <div className="products-grid">
         {sortedProducts.map(product => (
@@ -182,10 +178,12 @@ const Products: FC = () => {
               }).toString();
               navigate(`/Header/Products/${product.id}?${query}`);
             }}>
+
               <img src={product.image} alt={product.title} />
               <h3>{product.title}</h3>
               <p>{product.price} $</p>
             </div>
+
             {isAdmin ? <button className="delete-btn" onClick={() => { deleteProduct(product.id) }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -205,13 +203,14 @@ const Products: FC = () => {
               </svg>
             </button> : null}
           </div>
+
         ))}
       </div>
 
       {hasMore && !isLoading && (
         <div>
           <button className='btn' onClick={() => fetchProducts(false)}>
-            הצג עוד
+            Show more
           </button>
         </div>
       )}
