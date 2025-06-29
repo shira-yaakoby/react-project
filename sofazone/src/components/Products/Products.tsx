@@ -10,6 +10,8 @@ import AddIcon from '@mui/icons-material/Add';
 import { number } from 'yup';
 import { setMessage } from '../../store/MessageSlice';
 import { useDispatch } from 'react-redux';
+import { AddPhotoAlternate } from '@mui/icons-material';
+import AddProduct from '../AddProduct/AddProduct';
 
 
 const Products: FC = () => {
@@ -24,6 +26,7 @@ const Products: FC = () => {
   const percent = (price / 5000) * 100;
   const user = useSelector((state: RootState) => state.user.user);
   const isAdmin = user?.isAdmin === true;
+  const [clickedAddProduct, setClickedAddProduct] = useState<boolean>(false);
 
   const PRODUCTS_PER_PAGE = 20;
 
@@ -114,20 +117,20 @@ const Products: FC = () => {
   //             <AddIcon />
   //           </Fab>
 
- const deleteProduct = (id: number) => {
-  fetch(`http://localhost:3001/products/${id}`, {
-    method: 'DELETE',
-  })
-    .then(response => {
-      if (!response.ok) throw new Error('Failed to delete product');
-      dispatch(setMessage({ type: 'success', text: 'The product was successfully deleted.' }));
-      setProducts(prev => prev.filter(product => product.id !== id));
+  const deleteProduct = (id: number) => {
+    fetch(`http://localhost:3001/products/${id}`, {
+      method: 'DELETE',
     })
-    .catch(error => {
-      dispatch(setMessage({ type: 'error', text: 'We were unable to delete this product.' }));
-      console.error('Error deleting product:', error);
-    });
-};
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to delete product');
+        dispatch(setMessage({ type: 'success', text: 'The product was successfully deleted.' }));
+        setProducts(prev => prev.filter(product => product.id !== id));
+      })
+      .catch(error => {
+        dispatch(setMessage({ type: 'error', text: 'We were unable to delete this product.' }));
+        console.error('Error deleting product:', error);
+      });
+  };
 
 
   return (
@@ -165,9 +168,9 @@ const Products: FC = () => {
           </div>
         </div>
 
-        {isAdmin ? <button onClick={() => { }}>add product +</button> : null}
-
+        {isAdmin ? <button onClick={() => setClickedAddProduct(true)}>Add product +</button> : null}
       </div>
+      {clickedAddProduct&&(<AddProduct onClose={()=>{setClickedAddProduct(false)}}/>)}
 
       <div className="products-grid">
         {sortedProducts.map(product => (
