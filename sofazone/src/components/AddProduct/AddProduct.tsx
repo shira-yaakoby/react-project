@@ -47,7 +47,8 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
     };
 
     console.log('Submitting:', newProduct);
-    // כאן אפשר לעשות POST לשרת
+
+    
   };
 
   const addProduct = async () => {
