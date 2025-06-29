@@ -1,31 +1,22 @@
 import React, { FC, useEffect, useState, FormEvent } from 'react';
 import './AddProduct.scss';
+import '../Products/Products.scss';
 import { ProductModel } from '../../models/ProductModel';
+import { useCategories } from '../../hooks/useCategories';
 
 interface AddProductProps {
   onClose: () => void;
 }
 
-
 const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
   const [category, setCategory] = useState<string>('');
-  const [categories, setCategories] = useState<string[]>([]);
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [price, setPrice] = useState('');
-
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+ const { categories } = useCategories();
 
-  useEffect(() => {
-    fetch('http://localhost:3001/products')
-      .then(res => res.json())
-      .then(data => {
-        const uniqueCategories = Array.from(new Set(data.map((p: ProductModel) => p.category))) as string[];
-        setCategories(uniqueCategories);
-      });
-  }, []);
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
@@ -125,7 +116,7 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
           {errors.price && <div className="error">{errors.price}</div>}
 
           <br />
-          <button type="submit">Add Product</button>
+          <button type="submit" onClick={addProduct}>Add Product</button>
         </form>
       </div>
     </div>

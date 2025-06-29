@@ -423,6 +423,15 @@
       "category": "Armchairs",
       "price": 1290,
       "buyCount": 4
+    },
+    {
+      "id": "48",
+      "title": "Comfort sofa",
+      "description": "Crocodile leather sofa straight to your clinic!",
+      "image": "https://d3m9l0v76dty0.cloudfront.net/system/photos/15301471/original/7cc32d6c429343b2be1e9e96439f1e1c.jpg",
+      "category": "Sofas",
+      "price": 5000,
+      "buyCount": 0
     }
   ],
   "reviews": [
