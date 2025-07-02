@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import './ProductDetails.scss';
+import'../../scss/popupForm.scss';
 import Header from '../Header/Header';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { ProductModel } from '../../models/ProductModel';
@@ -135,7 +136,9 @@ const ProductDetails: FC = () => {
       {product ? (
         <div className="top-section">
           {clickedAddReview && !isAdmin ?
-            <div className="add-review">
+            // <div className="add-review">
+              <div className="popup-form">
+
               <span onClick={() => setClickedAddReview(false)} style={{ cursor: 'pointer' }}>X</span>
               <h1>Add review</h1>
 

@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState, FormEvent } from 'react';
 import './AddProduct.scss';
-import '../Products/Products.scss';
+import'../../scss/popupForm.scss';
+// import '../Products/Products.scss';
 import { ProductModel } from '../../models/ProductModel';
 import { useCategories } from '../../hooks/useCategories';
 import { setMessage } from '../../store/MessageSlice';
@@ -96,7 +97,9 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
 
   return (
     <div className="AddProduct">
-      <div className="add-review">
+      {/* <div className="add-review"> */}
+        <div className="popup-form">
+
         <span onClick={() => { props.onClose() }} style={{ cursor: 'pointer' }}>X</span>
         <h1>Add product</h1>
         <form onSubmit={handleSubmit}>
