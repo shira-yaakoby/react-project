@@ -33,7 +33,7 @@
       "name": "Shira Yaakoby",
       "email": "shira0583267831@gmail.com",
       "password": "123123123Aa@",
-      "isAdmin": true
+      "isAdmin": false
     },
     {
       "id": "066b",
@@ -431,6 +431,15 @@
       "image": "https://d3m9l0v76dty0.cloudfront.net/system/photos/15301471/original/7cc32d6c429343b2be1e9e96439f1e1c.jpg",
       "category": "Sofas",
       "price": 5000,
+      "buyCount": 0
+    },
+    {
+      "id": "2332",
+      "title": "Corner sofa",
+      "description": "Crocodile leather sofa straight to your clinic!",
+      "image": "https://www.betili-shop.com/media/catalog/product/cache/41ac7d26ea8fd25f2de331e86f7d3102/0/7/077a5071_2.jpg",
+      "category": "Corner Sofas",
+      "price": 4500,
       "buyCount": 0
     }
   ],

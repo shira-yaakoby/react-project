@@ -3,6 +3,9 @@ import './AddProduct.scss';
 import '../Products/Products.scss';
 import { ProductModel } from '../../models/ProductModel';
 import { useCategories } from '../../hooks/useCategories';
+import { setMessage } from '../../store/MessageSlice';
+import { MessageModel } from '../../models/MessageModel';
+import { useDispatch } from 'react-redux';
 
 interface AddProductProps {
   onClose: () => void;
@@ -15,8 +18,8 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
   const [image, setImage] = useState('');
   const [price, setPrice] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
- const { categories } = useCategories();
-
+  const { categories } = useCategories();
+  const dispatch = useDispatch();
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
@@ -48,7 +51,7 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
 
     console.log('Submitting:', newProduct);
 
-    
+
   };
 
   const addProduct = async () => {
@@ -70,16 +73,21 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(newProduct),
+
       });
 
-      if (!res.ok) throw new Error('Failed to add product');
+      if (!res.ok) {
+
+        dispatch(setMessage({ type: 'error', text: 'Failed to add product.' }));
+      }
 
       const savedProduct = await res.json();
+      dispatch(setMessage({ type: 'success', text: 'Product added successfully.' }))
       console.log('Product saved:', savedProduct);
 
       props.onClose(); // סגירת טופס
     } catch (err) {
-      alert('Failed to save product.');
+      dispatch(setMessage({ type: 'error', text: 'Failed to add product.' }));
       console.error(err);
     }
   };
@@ -124,3 +132,4 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
 };
 
 export default AddProduct;
+
