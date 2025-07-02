@@ -84,6 +84,8 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
       const savedProduct = await res.json();
       dispatch(setMessage({ type: 'success', text: 'Product added successfully.' }))
       console.log('Product saved:', savedProduct);
+      dispatch(setMessage({ type: 'error', text: 'Product added successfully.' }));
+
 
       props.onClose(); // סגירת טופס
     } catch (err) {
@@ -132,4 +134,3 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
 };
 
 export default AddProduct;
-
