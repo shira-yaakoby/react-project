@@ -3,6 +3,8 @@ import './AddProduct.scss';
 import '../Products/Products.scss';
 import { ProductModel } from '../../models/ProductModel';
 import { useCategories } from '../../hooks/useCategories';
+import { useDispatch } from 'react-redux';
+import { setMessage } from '../../store/MessageSlice';
 
 interface AddProductProps {
   onClose: () => void;
@@ -16,6 +18,8 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
   const [price, setPrice] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
  const { categories } = useCategories();
+ const dispatch = useDispatch();
+
 
 
   const validate = () => {
@@ -72,14 +76,18 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
         body: JSON.stringify(newProduct),
       });
 
-      if (!res.ok) throw new Error('Failed to add product');
+      if (!res.ok){
+        dispatch(setMessage({ type: 'error', text: 'Failed to add product.' }));
+      }
 
       const savedProduct = await res.json();
       console.log('Product saved:', savedProduct);
+      dispatch(setMessage({ type: 'error', text: 'Product added successfully.' }));
+
 
       props.onClose(); // סגירת טופס
     } catch (err) {
-      alert('Failed to save product.');
+      dispatch(setMessage({ type: 'error', text: 'Failed to add product.' }));
       console.error(err);
     }
   };
