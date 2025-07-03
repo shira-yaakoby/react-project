@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
 import './Products.scss';
+import '../AddProduct/AddProduct.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProductModel } from '../../models/ProductModel';
 import { useSelector } from 'react-redux';
@@ -161,7 +162,7 @@ const { categories } = useCategories();
           </div>
         </div>
 
-        {isAdmin && !clickedAddProduct ? <button onClick={() => setClickedAddProduct(true)}>Add product +</button> : null}
+        {isAdmin && !clickedAddProduct ? <button className='btn' onClick={() => setClickedAddProduct(true)}>Add product +</button> : null}
       </div>
       {clickedAddProduct && (<AddProduct onClose={() => setClickedAddProduct(false)} /> )}
 

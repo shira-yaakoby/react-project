@@ -129,7 +129,7 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
           {errors.price && <div className="error">{errors.price}</div>}
 
           <br />
-          <button type="submit" onClick={addProduct}>Add Product</button>
+          <button  className='btn' type="submit" onClick={addProduct}>Add Product</button>
         </form>
       </div>
     </div>

@@ -33,7 +33,7 @@
       "name": "Shira Yaakoby",
       "email": "shira0583267831@gmail.com",
       "password": "123123123Aa@",
-      "isAdmin": false
+      "isAdmin": true
     },
     {
       "id": "066b",
@@ -541,6 +541,13 @@
       "productId": 12,
       "comment": "Looks better in pictures than in real life.",
       "rating": 2
+    },
+    {
+      "id": "8352",
+      "userId": "40d7",
+      "productId": "15",
+      "comment": "i really like it! thanks to SOFAZONE!",
+      "rating": 5
     }
   ]
 }
