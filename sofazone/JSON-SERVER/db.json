@@ -548,6 +548,20 @@
       "productId": "15",
       "comment": "i really like it! thanks to SOFAZONE!",
       "rating": 5
+    },
+    {
+      "id": "9e18",
+      "userId": "066b",
+      "productId": "2",
+      "comment": "",
+      "rating": 4
+    },
+    {
+      "id": "6146",
+      "userId": "066b",
+      "productId": "40",
+      "comment": "",
+      "rating": 5
     }
   ]
 }

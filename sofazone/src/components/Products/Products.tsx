@@ -28,15 +28,13 @@ const Products: FC = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const isAdmin = user?.isAdmin === true;
   const [clickedAddProduct, setClickedAddProduct] = useState<boolean>(false);
-
+  const { categories } = useCategories();
   const PRODUCTS_PER_PAGE = 20;
 
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-  // קריאת פרמטרים מה-URL
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const categoryParam = params.get('category');
@@ -48,10 +46,7 @@ const Products: FC = () => {
     setMaxPrice(priceParam ? Number(priceParam) : 0);
   }, [location.search]);
 
-const { categories } = useCategories();
 
-
-  // טעינת מוצרים מהשרת לפי עמוד וסינון
   const fetchProducts = async (reset = false) => {
     setIsLoading(true);
     const params = new URLSearchParams();
@@ -78,14 +73,12 @@ const { categories } = useCategories();
     setIsLoading(false);
   };
 
-  // שליפה מחדש כשמשנים פילטרים
   useEffect(() => {
     setPage(0);
     setHasMore(true);
     fetchProducts(true);
   }, [category, price]);
 
-  // עדכון ה-URL בהתאם לפילטרים
   useEffect(() => {
     const params = new URLSearchParams();
 
@@ -99,7 +92,6 @@ const { categories } = useCategories();
     }, { replace: true });
   }, [category, sortOrder, price, navigate]);
 
-  // מיון בצד לקוח
   const sortedProducts = useMemo(() => {
     let updated = [...products];
     if (sortOrder === 'asc') updated.sort((a, b) => a.price - b.price);
@@ -107,9 +99,6 @@ const { categories } = useCategories();
     else if (sortOrder === 'bestseller') updated.sort((a, b) => b.buyCount - a.buyCount);
     return updated;
   }, [products, sortOrder]);
-  //  <Fab size="small" /*color="secondary" */ aria-label="add">
-  //             <AddIcon />
-  //           </Fab>
 
   const deleteProduct = (id: number) => {
     fetch(`http://localhost:3001/products/${id}`, {
@@ -125,7 +114,6 @@ const { categories } = useCategories();
         console.error('Error deleting product:', error);
       });
   };
-
 
   return (
     <div className="Products">
@@ -164,7 +152,7 @@ const { categories } = useCategories();
 
         {isAdmin && !clickedAddProduct ? <button className='btn' onClick={() => setClickedAddProduct(true)}>Add product +</button> : null}
       </div>
-      {clickedAddProduct && (<AddProduct onClose={() => setClickedAddProduct(false)} /> )}
+      {clickedAddProduct && (<AddProduct onClose={() => setClickedAddProduct(false)} />)}
 
       <div className="products-grid">
         {sortedProducts.map(product => (
@@ -220,7 +208,3 @@ const { categories } = useCategories();
 };
 
 export default Products;
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}
-

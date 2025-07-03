@@ -25,6 +25,7 @@ function App() {
   const dispatch = useDispatch();
   const message = useSelector((state: RootState) => state.message);
   let isAdmin: boolean;
+
   useEffect(() => {
     const localStorageCart = localStorage.getItem('cart');
     const localStorageUser = localStorage.getItem('loggedUser');
@@ -35,9 +36,10 @@ function App() {
     }
     if (localStorageCart) {
       const parsedCart = JSON.parse(localStorageCart);
-      dispatch(setCartItems(parsedCart));  // קריאה לפעולה החדשה
+      dispatch(setCartItems(parsedCart));
     }
   }, []);
+  
   const LazyAddProduct = React.lazy(() => import('./components/AddProduct/AddProduct'))
 
   return (
@@ -49,7 +51,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
 
         <Route path="Header" element={<Header />}>
-          <Route index element={<HomePage />} /> {/* ברירת מחדל */}
+          <Route index element={<HomePage />} />
           <Route path="HomePage" element={<HomePage />} />
           <Route path="About" element={<About />} />
           <Route path="Cart" element={<Cart />} />
@@ -57,7 +59,7 @@ function App() {
           <Route path="Products/:id" element={<ProductDetails />} />
           <Route path="AddProduct" element={
             <Suspense fallback={<div>loading...</div>}>
-              <LazyAddProduct onClose={() => { /* implement close logic here */ }} />
+              <LazyAddProduct onClose={() => {}} />
             </Suspense>
           } />
           <Route path="Profile" element={<Profile />} />

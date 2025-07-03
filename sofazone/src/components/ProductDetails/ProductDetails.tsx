@@ -124,7 +124,7 @@ const ProductDetails: FC = () => {
       .then((savedReview: Review) => {
         dispatch(setMessage({ type: 'success', text: 'Review saved successfully.' }));
         setReviews(prev => [...prev, savedReview]);
-        setClickedAddReview(false); // סגירת טופס
+        setClickedAddReview(false);
       })
       .catch(() => {
         dispatch(setMessage({ type: 'error', text: 'Failed to save review.' }));
@@ -136,9 +136,7 @@ const ProductDetails: FC = () => {
       {product ? (
         <div className="top-section">
           {clickedAddReview && !isAdmin ?
-            // <div className="add-review">
               <div className="popup-form">
-
               <span onClick={() => setClickedAddReview(false)} style={{ cursor: 'pointer' }}>X</span>
               <h1>Add review</h1>
 
@@ -233,7 +231,6 @@ const ProductDetails: FC = () => {
             </div>
           </div>
 
-
           <div className="right-side">
             <button
               className="return-btn"
@@ -249,10 +246,7 @@ const ProductDetails: FC = () => {
         </div>
       ) : (
         <div>Loading...</div>
-
       )}
-
-
     </div>
   );
 };

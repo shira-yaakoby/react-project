@@ -2,10 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import './Profile.scss';
 import '../../scss/form-style.scss';
 import * as yup from 'yup';
-import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
 import { UserModel } from '../../models/UserModel';
-import Header from '../Header/Header';
 import { useDispatch } from 'react-redux';
 import { setMessage } from '../../store/MessageSlice';
 import { loginUser } from '../../store/UserSlice';
@@ -16,7 +14,6 @@ const Profile: FC<ProfileProps> = () => {
   const [updateMessage, setUpdateMessage] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik<UserModel>({
     initialValues: {
@@ -32,15 +29,6 @@ const Profile: FC<ProfileProps> = () => {
         .string()
         .min(8)
         .max(20)
-      // .test((value) => {
-      //   if (!value) return false;
-      //   const hasUpperCase = /[A-Z]/.test(value);
-      //   const hasLowerCase = /[a-z]/.test(value);
-      //   const hasNumber = /[0-9]/.test(value);
-      //   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
-      //   return hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
-      // }),
-      // isAdmin: yup.boolean().required('Admin status is required'),
     }),
 
     onSubmit: async (values) => {
@@ -164,26 +152,13 @@ const Profile: FC<ProfileProps> = () => {
             )}
 
             {/* Submit */}
-            <button type="submit" className="submit-btn" onClick={() => { }}>Save Changes</button>
+            <button type="submit" className="submit-btn">Save Changes</button>
 
-            {/* Message */}
-            {/* {updateMessage && (
-              <div
-                style={{
-                  color: updateMessage.includes('success') ? 'green' : 'darkred',
-                  marginTop: '1rem',
-                  textAlign: 'center',
-                }}
-              >
-                {updateMessage}
-              </div>
-            )} */}
           </form>
         </div>
       </div>
     </div>
   );
 };
-
 
 export default Profile;
