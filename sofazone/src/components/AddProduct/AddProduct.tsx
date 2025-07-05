@@ -88,7 +88,7 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
       dispatch(setMessage({ type: 'error', text: 'Product added successfully.' }));
 
 
-      props.onClose(); // סגירת טופס
+      props.onClose(); 
     } catch (err) {
       dispatch(setMessage({ type: 'error', text: 'Failed to add product.' }));
       console.error(err);
@@ -97,9 +97,7 @@ const AddProduct: FC<AddProductProps> = (props: AddProductProps) => {
 
   return (
     <div className="AddProduct">
-      {/* <div className="add-review"> */}
         <div className="popup-form">
-
         <span onClick={() => { props.onClose() }} style={{ cursor: 'pointer' }}>X</span>
         <h1>Add product</h1>
         <form onSubmit={handleSubmit}>

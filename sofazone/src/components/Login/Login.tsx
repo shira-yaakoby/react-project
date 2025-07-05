@@ -40,7 +40,6 @@ const Login: FC = () => {
     } catch (err) {
       dispatch(setMessage({ type: 'error', text: 'We were unable to connect you.' }));
       console.error('שגיאה בכניסה:', err);
-      // alert('הייתה שגיאה בשרת, נסי שוב מאוחר יותר.');
     }
   };
 
@@ -85,14 +84,6 @@ const Login: FC = () => {
           onChange={(m) => { myForm.handleChange(m); if (loginMessage) setLoginMessage(null); }}
           type="password" placeholder="••••••••" required />
         {myForm.errors.password ? <small className='text-danger'>{myForm.errors.password}</small> : ''}
-
-        {/* <div className="checkbox-container">
-          <label>
-            <input type="checkbox" />
-            Remember me
-          </label>
-          <a href="#">Forgot password?</a>
-        </div> */}
 
         <button type="submit" className="submit-btn" >Login</button>
         {loginMessage && (
