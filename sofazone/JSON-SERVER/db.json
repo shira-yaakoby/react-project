@@ -61,6 +61,13 @@
       "email": "sos@gmail.com",
       "password": "sosS1234!",
       "isAdmin": false
+    },
+    {
+      "id": "962f",
+      "name": "Nani",
+      "email": "Nani@gmail.com",
+      "password": "Nn!123456789",
+      "isAdmin": false
     }
   ],
   "products": [
@@ -548,6 +555,13 @@
       "productId": "15",
       "comment": "i really like it! thanks to SOFAZONE!",
       "rating": 5
+    },
+    {
+      "id": "31c9",
+      "userId": "962f",
+      "productId": "2",
+      "comment": "it's looks better than what is it really....",
+      "rating": 1
     }
   ]
 }
